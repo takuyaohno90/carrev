@@ -1,0 +1,2 @@
+class CarItem < ApplicationRecord
+end
