@@ -1,0 +1,2 @@
+class Bodytype < ApplicationRecord
+end

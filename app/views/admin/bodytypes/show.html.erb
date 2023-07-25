@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    ボディタイプ詳細画面
+  </div>
+  <div class="row d-flex justify-content-center">
+    <table>
+      <thead>
+        <tr>
+          <th>ボディタイプ</th>
+          <td><%= @bodytype.name %></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="row">
+    <div>
+      <%= link_to "編集する", edit_bodytype_path, class: "btn btn-primary"  %>
+    </div>
+    <div>
+      <%= link_to "削除する", bodytype_path, method: :destroy, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

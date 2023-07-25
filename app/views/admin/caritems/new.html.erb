@@ -18,11 +18,10 @@
       </tr>
       <tr>
         <td><%= f.label :maker_id, "メーカー" %></td>
-        <td><%= %></td>
+        <td><%= f.select :maker_id, option_from_collection_for_select(Maker.all, :id, :name)%></td>
       </tr>
       <tr>
-        <td><%= f.label :num_people, "乗車定員" %></td>
-        <!--enumでセレクトタイプにする-->
+        <td><%= f.label :num_people, "乗車定員(数値のみインプット)" %></td>
         <td><%= f.text_field :num_people %></td>
       </tr>
       <tr>
@@ -47,13 +46,11 @@
       </tr>
       <tr>
         <td><%= f.label :fuel, "燃料" %></td>
-        <!--enumでセレクトタイプにする-->
-        <td><%= f.text_field :fuel %></td>
+        <td><%= f.select :fuel, option_from_collection_for_select(Fuel.all, :id, :name)%></td>
       </tr>
       <tr>
         <td><%= f.label :body, "ボディタイプ" %></td>
-        <!--enumでセレクトタイプにする-->
-        <td><%= f.text_field :body %></td>
+        <td><%= f.select :body, option_from_collection_for_select(Bodytype.all, :id, :name)%></td>
       </tr>
       <tr>
         <td><%= f.label :fuel_consumption, "燃費" %></td>
