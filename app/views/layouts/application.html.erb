@@ -36,13 +36,13 @@
               <!--<li class="nav-item"><= link_to "カート", cart_items_path, class: 'nav-link text-dark'  %></li>-->
               <!--<li class="nav-item"><= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark'  %></li>-->
               <% elsif admin_signed_in? %>
-                <li class="nav-item">車種一覧</li>
+                <li class="nav-item"><%= link_to "車種一覧", caritems_path, class: 'nav-link text-dark'  %></li>
                 <li class="nav-item">会員一覧</li>
+                <li class="nav-item"><%= link_to "ボディタイプ一覧", bodytypes_path, class: 'nav-link text-dark'  %></li>
+                <li class="nav-item"><%= link_to "燃料一覧", fuels_path, class: 'nav-link text-dark'  %></li>
                 <li class="nav-item">ログアウト</li>
-              <!--<li class="nav-item"><= link_to "商品一覧", admin_items_path, class: 'nav-link text-dark'  %></li>-->
               <!--<li class="nav-item"><= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark'  %></li>-->
-              <!--<li class="nav-item"><= link_to "注文履歴一覧", admin_path, class: 'nav-link text-dark'  %></li>-->
-              <!--<li class="nav-item"><= link_to "ジャンル一覧", admin_genres_path, class: 'nav-link text-dark'  %></li>-->
+              <!--<li class="nav-item"><= link_to "レビュー一覧", admin_path, class: 'nav-link text-dark'  %></li>-->
               <!--<li class="nav-item"><= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark'  %></li>-->
               <% else %>
                 <li class="nav-item">About</li>
