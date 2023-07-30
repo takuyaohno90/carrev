@@ -10,7 +10,8 @@ class Admin::BodytypesController < ApplicationController
     if @bodytype.save
       redirect_to bodytypes_path
     else
-      render :new
+      @bodytypes = Bodytype.all
+      render :index
     end
   end
 

@@ -24,11 +24,16 @@
   </div>
   <% end %>
 
+
+  <div class="row d-flex justify-content-center">
+    ボディタイプ一覧
+  </div>
   <div class="row d-flex justify-content-center">
     <table>
       <thead>
         <tr>
-          <th>ボディタイプ一覧</th>
+          <th>ID</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -36,6 +41,7 @@
       <% @bodytypes.each do |bodytype| %>
       <tbody>
         <tr>
+          <td><%= bodytype.id %></td>
           <td><%= bodytype.name %></td>
           <td><%= link_to "編集する", edit_bodytype_path(bodytype.id) %></td>
           <td><%= link_to "削除する", bodytype_path(bodytype.id), method: :delete %></td>

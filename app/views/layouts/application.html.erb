@@ -16,7 +16,7 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <% if admin_signed_in? %>
-            <%= link_to "カーRev", root_path,class: "fa-solid fa-car-on" %>
+            <%= link_to "カーRev", admin_path,class: "fa-solid fa-car-on" %>
           <% else %>
             <%= link_to "カーRev", root_path,class: "fa-solid fa-car-on" %>
           <% end %>
@@ -40,6 +40,7 @@
                 <li class="nav-item">会員一覧</li>
                 <li class="nav-item"><%= link_to "ボディタイプ一覧", bodytypes_path, class: 'nav-link text-dark'  %></li>
                 <li class="nav-item"><%= link_to "燃料一覧", fuels_path, class: 'nav-link text-dark'  %></li>
+                <li class="nav-item"><%= link_to "メーカー一覧", makers_path, class: 'nav-link text-dark'  %></li>
                 <li class="nav-item">ログアウト</li>
               <!--<li class="nav-item"><= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark'  %></li>-->
               <!--<li class="nav-item"><= link_to "レビュー一覧", admin_path, class: 'nav-link text-dark'  %></li>-->

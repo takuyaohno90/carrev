@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    メーカー編集画面
+  </div>
+  <%= form_with model: @maker, url: maker_path(@maker.id), method: :patch do |f| %>
+  <div class="row d-flex justify-content-center">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <td><% f.label :name, "メーカー" %></td>
+        <td><%= f.text_field :name %></td>
+      </tbody>
+    </table>
+  </div>
+  <div class="row d-flex justify-content-center align-center pl5">
+    <%= f.submit "編集", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>

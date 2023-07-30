@@ -10,7 +10,8 @@ class Admin::FuelsController < ApplicationController
     if @fuel.save
       redirect_to fuels_path
     else
-      render :new
+      @fuels = Fuel.all
+      render :index
     end
   end
 
