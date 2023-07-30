@@ -20,10 +20,28 @@ class Admin::CaritemsController < ApplicationController
 
 
   def show
-    @caritems = CarItem.find(params[:id])
+    @caritem = CarItem.find(params[:id])
   end
 
   def edit
+    @caritem = CarItem.find(params[:id])
+  end
+
+  def update
+    @caritem = CarItem.find(params[:id])
+    if @caritem.update(caritem_params)
+      redirect_to caritem_path(@caritem.id)
+    else
+      render :edit
+    end
+
+  end
+
+  def destroy
+    @caritem = CarItem.find(params[:id])
+    @caritem.destroy
+    @caritems = CarItem.all
+    redirect_to admin_path
   end
 
   def caritem_params

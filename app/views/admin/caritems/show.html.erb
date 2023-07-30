@@ -10,63 +10,63 @@
       <tbody>
         <tr>
           <td>車種ID</td>
-          <td><%= @caritems.id %></td>
+          <td><%= @caritem.id %></td>
         </tr>
         <tr>
           <td>メーカー</td>
-          <td><%= @caritems.maker.name %></td>
+          <td><%= @caritem.maker.name %></td>
         </tr>
         <tr>
           <td>燃料</td>
-          <td><%= @caritems.fuel.name %></td>
+          <td><%= @caritem.fuel.name %></td>
         </tr>
         <tr>
           <td>ボディタイプ</td>
-          <td><%= @caritems.bodytype.name %></td>
+          <td><%= @caritem.bodytype.name %></td>
         </tr>
         <tr>
           <td>車種名</td>
-          <td><%= @caritems.name %></td>
+          <td><%= @caritem.name %></td>
         </tr>
         <tr>
           <td>乗車定員</td>
-          <td><%= @caritems.num_people %>人</td>
+          <td><%= @caritem.num_people %>人</td>
         </tr>
         <tr>
           <td>排気量</td>
-          <td><%= @caritems.displacement %></td>
+          <td><%= @caritem.displacement %></td>
         </tr>
         <tr>
           <td>駆動方式</td>
-          <td><%= @caritems.drive_system %></td>
+          <td><%= @caritem.drive_system %></td>
         </tr>
         <tr>
           <td>ドア</td>
-          <td><%= @caritems.door %></td>
+          <td><%= @caritem.door %></td>
         </tr>
         <tr>
           <td>ミッション</td>
-          <td><%= @caritems.mission %></td>
+          <td><%= @caritem.mission %></td>
         </tr>
         <tr>
           <td>年式（初度登録）</td>
-          <td><%= @caritems.model_year %></td>
+          <td><%= @caritem.model_year %></td>
         </tr>
         <tr>
           <td>燃費</td>
-          <td><%= @caritems.fuel_consumption %></td>
+          <td><%= @caritem.fuel_consumption %></td>
         </tr>
         <tr>
           <td>車両重量</td>
-          <td><%= @caritems.weight %></td>
+          <td><%= @caritem.weight %></td>
         </tr>
         <tr>
           <td>全長×全幅×全高</td>
-          <td><%= @caritems.size %></td>
+          <td><%= @caritem.size %></td>
         </tr>
         <tr>
-          <td><%= link_to "編集", edit_caritem_path(@caritems.id) %></td>
-          <td><%= link_to "削除", caritem_path(@caritems.id), method: :delete %></td>
+          <td><%= link_to "編集", edit_caritem_path(@caritem.id) %></td>
+          <td><%= link_to "削除", caritem_path(@caritem.id), method: :delete %></td>
         </tr>
       </tbody>
     </table>

@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row d-flex justify-content-conter">
+    編集画面
+  </div>
+  <%= form_with model: @caritem, url: caritem_path(@caritem.id), method: :patch do |caritem| %>
+  <div class="row d-flex justify-content-conter">
+    <table class="admin_item_info item_form">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= caritem.label :name, "車種名" %></td>
+          <td><%=caritem.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :maker_id, "メーカー" %></td>
+          <td><%= caritem.select :maker_id, options_from_collection_for_select(Maker.all, :id, :name)%></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :fuel_id, "燃料" %></td>
+          <td><%= caritem.select :fuel_id, options_from_collection_for_select(Fuel.all, :id, :name)%></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :bodytype_id, "ボディタイプ" %></td>
+          <td><%= caritem.select :bodytype_id, options_from_collection_for_select(Bodytype.all, :id, :name)%></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :num_people, "乗車定員(数値のみインプット)" %></td>
+          <td><%= caritem.text_field :num_people %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :displacement, "排気量" %></td>
+          <td><%= caritem.text_field :displacement %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :drive_system, "駆動方式" %></td>
+          <td><%= caritem.text_field :drive_system %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :door, "ドア" %></td>
+          <td><%= caritem.text_field :door %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :mission, "ミッション" %></td>
+          <td><%= caritem.text_field :mission %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :model_year, "年式" %></td>
+          <td><%= caritem.text_field :model_year %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :fuel_consumption, "燃費" %></td>
+          <td><%= caritem.text_field :fuel_consumption %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :weight, "車両重量" %></td>
+          <td><%= caritem.text_field :weight %></td>
+        </tr>
+        <tr>
+          <td><%= caritem.label :size, "全長×全幅×全高" %></td>
+          <td><%= caritem.text_field :size %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row d-flex justify-content-conter">
+    <%= caritem.submit "編集", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>
