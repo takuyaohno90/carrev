@@ -4,49 +4,47 @@ class Admin::MultiCaritemsController < ApplicationController
   end
 
   def create
-    @caritem = CarItem.new(caritem_params)
+    # ファイルがアップロードされているかを確認
+    if params[:car_item][:excel_file].present?
+      # アップロードされたエクセルファイルを取得
+      excel_file = params[:car_item][:excel_file].tempfile
 
-    # if @caritem.save
-    @caritem.save
+      # rooを使用してエクセルファイルを解析
+      workbook = Roo::Spreadsheet.open(excel_file)
+      sheet = workbook.sheet(0) # シート1を使用する場合
 
-      # ファイルがアップロードされているかを確認
-      if params[:car_item][:excel_file].present?
+      # エクセルファイルの各行を処理
+      sheet.each_row_streaming(offset: 1) do |row|
+      @caritem = CarItem.new
+      @caritem.maker_id = row[0].value.to_i
+      @caritem.fuel_id = row[1].value.to_i
+      @caritem.bodytype_id = row[2].value.to_i
+      @caritem.name = row[3].value.to_s.strip
+      @caritem.num_people = row[4].value.to_s.strip
+      @caritem.displacement = row[5].value.to_s.strip
+      @caritem.drive_system = row[6].value.to_s.strip
+      @caritem.door = row[7].value.to_s.strip
+      @caritem.mission = row[8].value.to_s.strip
+      @caritem.model_year = row[9].value.to_s.strip
+      @caritem.fuel_consumption = row[10].value.to_s.strip
+      @caritem.weight = row[11].value.to_s.strip
+      @caritem.size = row[12].value.to_s.strip
 
-        # アップロードされたエクセルファイルを取得
-        excel_file = params[:car_item][:excel_file].tempfile
-
-        # rooを使用してエクセルファイルを解析
-        workbook = Roo::Spreadsheet.open(excel_file)
-        sheet = workbook.sheet(0) # シート1を使用する場合
-
-        # エクセルファイルの各行を処理
-        sheet.each_row_streaming(offset: 1) do |row|
-          maker_id = row[0].value.to_i
-          fuel_id = row[1].value.to_i
-          bodytype_id = row[2].value.to_i
-          name = row[3].value.to_s.strip
-          num_people = row[4].value.to_s.strip
-          displacement = row[5].value.to_s.strip
-          drive_system = row[6].value.to_s.strip
-          door = row[7].value.to_s.strip
-          mission = row[8].value.to_s.strip
-          model_year = row[9].value.to_s.strip
-          fuel_consumption = row[10].value.to_s.strip
-          weight = row[11].value.to_s.strip
-          size = row[12].value.to_s.strip
-
-          # タイトルと著者が空でない場合のみデータベースに登録
-          # if title.present? && author.present?
-            CarItem.create(maker_id: maker_id, fuel_id: fuel_id, bodytype_id: bodytype_id, name: name, num_people: num_people, displacement: displacement, drive_system: drive_system, door: door, mission: mission, model_year: model_year, fuel_consumption: fuel_consumption, weight: weight, size: size)
-          # end
+        # 同じ登録車種があるかチェック
+        @caritem_check = CarItem.find_by(name: @caritem.name)
+        if !@caritem_check
+         if @caritem.save
+         else
+           puts @caritem.errors.full_messages
+         end
         end
       end
 
-      @caritems = CarItem.all
-      redirect_to admin_path, notice: "caritem was successfully uploaded."
-    # else
-      # render :new
-    # end
+    @caritems = CarItem.all
+    redirect_to admin_path, notice: "caritem was successfully uploaded."
+    else
+      render :new
+    end
   end
 
   private
