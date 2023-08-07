@@ -1,13 +1,15 @@
 <div class="container">
-  <div class="row" style="height: 50vh; margin-top: 20px;">
+  <div class="row mt-4">
     <div class="col-lg-2">
       <div>
-        <li><%= link_to "車種登録", check_caritems_path %></li>
+        <ul class="list-unstyled">
+          <li class="mb-3"><%= link_to "車種登録", check_caritems_path, class: "btn btn-primary" %></li>
+        </ul>
       </div>
     </div>
-    <div class="col-lg-8 d-flex justify-content-center">
-      <table>
-        <thead>
+    <div class="col-lg-8">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-light">
           <tr>
             <th>車種ID</th>
             <th>メーカーID</th>
@@ -17,25 +19,19 @@
             <th></th>
           </tr>
         </thead>
-        <% @caritems.each do |caritem| %>
         <tbody>
+          <% @caritems.each do |caritem| %>
           <tr>
             <td><%= caritem.id %></td>
             <td><%= caritem.maker.name %></td>
             <td><%= caritem.fuel.name %></td>
             <td><%= caritem.bodytype.name %></td>
             <td><%= caritem.name %></td>
-            <td><%= link_to "詳細", caritem_path(caritem.id) %></td>
+            <td><%= link_to "詳細", caritem_path(caritem.id), class: "btn btn-info btn-sm" %></td>
           </tr>
+          <% end %>
         </tbody>
-        <% end %>
       </table>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col text-center">
-
     </div>
   </div>
 </div>
