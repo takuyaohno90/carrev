@@ -1,0 +1,35 @@
+<div class="container">
+  <%= form_with model: @review, url: user_reviews_url, method: :post do |f| %>
+  <div class="row d-flex justify-content-center">
+    <h3><%= @car_item.name %></h3>
+      <div class="field">
+        <%= f.label :title_rev, class: 'form-label' %>
+        <%= f.text_field :title_rev, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :scene_a, class: 'form-label' %>
+        <%= f.text_field :scene_a, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :scene_b, class: 'form-label' %>
+        <%= f.text_field :scene_b, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :favorite, class: 'form-label' %>
+        <%= f.text_field :favorite, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :complain, class: 'form-label' %>
+        <%= f.text_field :complain, class: 'form-control' %>
+      </div>
+      <%= f.hidden_field :car_item_id, :value => @car_item.id %>
+      <div class="field">
+        <%= f.label :name, class: 'form-label' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+  </div>
+  <% end %>
+</div>

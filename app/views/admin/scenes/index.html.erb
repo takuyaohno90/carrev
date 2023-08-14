@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    シーン登録
+  </div>
+  <%= form_with model: @scene, url: scenes_path, method: :post do |f| %>
+  <div class="row d-flex justify-content-center">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= f.label :name, "シーン" %></td>
+        <td><%=f.text_field :name %></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="row d-flex justify-content-center align-center pl5">
+    <%= f.submit "登録", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+
+
+  <div class="row d-flex justify-content-center">
+    シーン一覧
+  </div>
+  <div class="row d-flex justify-content-center">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @scenes.each do |scene| %>
+      <tbody>
+        <tr>
+          <td><%= scene.id %></td>
+          <td><%= scene.name %></td>
+          <td><%= link_to "編集する", edit_scene_path(scene.id) %></td>
+          <td><%= link_to "削除する", scene_path(scene.id), method: :delete %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

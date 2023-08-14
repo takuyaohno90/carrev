@@ -1,0 +1,9 @@
+<% if @search_results.any? %>
+  <ul>
+    <% @search_results.each do |car_item| %>
+      <li><%= car_item.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>該当するアイテムは見つかりませんでした。</p>
+<% end %>
