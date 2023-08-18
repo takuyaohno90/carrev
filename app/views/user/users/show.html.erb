@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-lg-1">
+      登録情報
+    </div>
+    <div class="col-lg-2">
+      <%= link_to '編集する', user_informaition_edit_path, class: "btn btn-sm btn-success" %>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 10px;">
+    <table class="table table-bordered">
+      <tr>
+        <th>氏名</th>
+        <td><%= current_user.last_name %> <%= current_user.first_name %></td>
+      </tr>
+      <tr>
+        <th>カナ</th>
+        <td><%= current_user.last_name_kana %> <%= current_user.first_name_kana %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= current_user.email %></td>
+      </tr>
+    </table>
+  </div>
+  <div>レビュー一覧</div>
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>車種名</th>
+          <th>メーカー</th>
+          <th>タイトルー</th>
+          <th>投稿日</th>
+        </tr>
+      </thead>
+      <% @reviews.each do |review| %>
+      <tbody>
+        <tr>
+          <td><%= review.car_item.name %></td>
+          <td><%= review.car_item.maker.name %></td>
+          <td><%= link_to user_review_path(review.id) do %><%= review.title_rev %><% end %></td>
+          <td><%= review.updated_at.strftime("%Y/%m/%d") %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

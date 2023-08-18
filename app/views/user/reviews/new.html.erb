@@ -1,35 +1,83 @@
 <div class="container">
   <%= form_with model: @review, url: user_reviews_url, method: :post do |f| %>
-  <div class="row d-flex justify-content-center">
-    <h3><%= @car_item.name %></h3>
-      <div class="field">
-        <%= f.label :title_rev, class: 'form-label' %>
-        <%= f.text_field :title_rev, class: 'form-control' %>
+    <div class="row justify-content-center"> <!--d-flexは削除-->
+      <div class="col-md-6">
+
+        <!-- 車種名表示 -->
+        <h3><%= @car_item.name %></h3>
+
+        <!-- 主な使用シーン選択 -->
+        <div class="mb-3">
+          <label>主な使用シーン選択：</label>
+          <div class="d-flex flex-wrap">
+            <% @default_tags.each do |tag| %>
+              <div class="form-check mr-3 mb-2">
+                <%= check_box_tag 'review[name][]', tag, @review.tags.include?(tag), class: "form-check-input" %>
+                <%= label_tag tag, tag, class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- 採点 -->
+        <div class="mb-3">
+          <p>愛車を評価してください(5段階評価)</p>
+          <%= f.label :design, "デザイン", class: 'form-label' %>
+          <%= f.select :design, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :performance, "走行性能", class: 'form-label' %>
+          <%= f.select :performance, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :fuel_consumptionrev, "燃費", class: 'form-label' %>
+          <%= f.select :fuel_consumptionrev, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :quietness, "静粛性", class: 'form-label' %>
+          <%= f.select :quietness, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :vibration, "振動", class: 'form-label' %>
+          <%= f.select :vibration, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :indoor_space, "室内スペース", class: 'form-label' %>
+          <%= f.select :indoor_space, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :luggage_space, "荷室スペース", class: 'form-label' %>
+          <%= f.select :luggage_space, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :price, "本体価格", class: 'form-label' %>
+          <%= f.select :price, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :maintenance_cost, "維持費", class: 'form-label' %>
+          <%= f.select :maintenance_cost, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :safety, "安全機能", class: 'form-label' %>
+          <%= f.select :safety, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+          <%= f.label :passistance, "運転支援", class: 'form-label' %>
+          <%= f.select :assistance, options_for_select((1..5).map { |n| [n, n] }), {}, class: 'form-select' %>
+        </div>
+
+        <!-- レビュータイトル -->
+        <div class="mb-3">
+          <%= f.label :title_rev, "レビュータイトル", class: 'form-label' %>
+          <%= f.text_field :title_rev, class: 'form-control' %>
+        </div>
+
+        <!-- 画像投稿 -->
+        <div class="mb-3">
+          <%= f.label :image, "投稿画像", class: 'form-label' %>
+          <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
+        </div>
+
+        <!-- お気に入り -->
+        <div class="mb-3">
+          <%= f.label :favorite, "お気に入りの点",  class: 'form-label' %>
+          <%= f.text_area :favorite, class: 'form-control' %>
+        </div>
+
+        <!-- 不満点 -->
+        <div class="mb-3">
+          <%= f.label :complain, "不満点", class: 'form-label' %>
+          <%= f.text_area :complain, class: 'form-control' %>
+        </div>
+
+        <%= f.hidden_field :car_item_id, value: @car_item.id %>
+
+        <!-- 送信ボタン -->
+        <div class="d-flex justify-content-center">
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+
       </div>
-      <div class="field">
-        <%= f.label :scene_a, class: 'form-label' %>
-        <%= f.text_field :scene_a, class: 'form-control' %>
-      </div>
-      <div class="field">
-        <%= f.label :scene_b, class: 'form-label' %>
-        <%= f.text_field :scene_b, class: 'form-control' %>
-      </div>
-      <div class="field">
-        <%= f.label :favorite, class: 'form-label' %>
-        <%= f.text_field :favorite, class: 'form-control' %>
-      </div>
-      <div class="field">
-        <%= f.label :complain, class: 'form-label' %>
-        <%= f.text_field :complain, class: 'form-control' %>
-      </div>
-      <%= f.hidden_field :car_item_id, :value => @car_item.id %>
-      <div class="field">
-        <%= f.label :name, class: 'form-label' %>
-        <%= f.text_field :name, class: 'form-control' %>
-      </div>
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-  </div>
+    </div>
   <% end %>
 </div>

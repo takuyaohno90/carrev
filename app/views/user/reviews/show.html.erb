@@ -1,8 +1,98 @@
 <div class="container">
-  <div class="row d-flex justify-content-center">
-    <%= @review.title_rev %>
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        車種：<%= @review.car_item.name %>
+      </div>
+      <div>
+        レビュータイトル：<%= @review.title_rev %>
+      </div>
+      <div>
+        <p>投稿画像</p>
+        <%= image_tag @review.image, size: "300x300" %>
+      </div>
+      <div>
+        <p>お気に入りの点</p>
+        <%= @review.favorite %>
+      </div>
+      <div>
+        <p>不満点</p>
+        <%= @review.complain %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div>
+        <p>主な使用シーン</p>
+        <div class="d-flex flex-wrap">
+          <% @review_tags.each do |tag| %>
+          #<%= tag.name %>
+          <% end %>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>評価</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>デザイン</td>
+          <td><%= @review.design %></td>
+        </tr>
+        <tr>
+          <td>走行性能</td>
+          <td><%= @review.performance %></td>
+        </tr>
+        <tr>
+          <td>燃費</td>
+          <td><%= @review.fuel_consumptionrev %></td>
+        </tr>
+        <tr>
+          <td>静粛性</td>
+          <td><%= @review.quietness %></td>
+        </tr>
+        <tr>
+          <td>振動</td>
+          <td><%= @review.vibration %></td>
+        </tr>
+        <tr>
+          <td>室内スペース</td>
+          <td><%= @review.indoor_space %></td>
+        </tr>
+        <tr>
+          <td>荷室スペース</td>
+          <td><%= @review.luggage_space %></td>
+        </tr>
+        <tr>
+          <td>本体価格</td>
+          <td><%= @review.price %></td>
+        </tr>
+        <tr>
+          <td>維持費</td>
+          <td><%= @review.maintenance_cost %></td>
+        </tr>
+        <tr>
+          <td>安全機能</td>
+          <td><%= @review.safety %></td>
+        </tr>
+        <tr>
+          <td>運転支援</td>
+          <td><%= @review.assistance %></td>
+        </tr>
+        <tr>
+          <td>総合評価</td>
+          <td><%= @review.evaluation %></td>
+        </tr>
+        </tbody>
+      </table>
+      <% if @review.user.id == current_user.id %>
+        <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
+        <%= link_to "削除する", user_review_path(@review.id), method: :delete, class:"link btn btn-sm btn-success"  %>
+      <% end %>
+    </div>
   </div>
-  <% @review_tags.each do |tag| %>
-  <p>#<%= tag.name %></p>
-  <% end %>
+
 </div>
