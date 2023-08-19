@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <%= form_with model: @user, url: user_path, method: :patch do |f| %>
+    <table>
+        <tr>
+          <th>氏名</th>
+          <td><%= f.text_field :last_name, class: 'form-control' %></td>
+          <td><%= f.text_field :first_name, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th>フリガナ</th>
+          <td><%= f.text_field :last_name_kana, class: 'form-control' %></td>
+          <td><%= f.text_field :first_name_kana, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= f.text_field :email, class: 'form-control' %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><%= f.submit "編集する", class: 'btn btn-primary' %></td>
+          <td></td>
+        </tr>
+    </table>
+    <% end %>
+  </div>
+</div>

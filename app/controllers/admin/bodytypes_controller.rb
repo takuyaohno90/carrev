@@ -1,4 +1,5 @@
 class Admin::BodytypesController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @bodytype = Bodytype.new

@@ -26,18 +26,10 @@
           <p><%= comment.comment %>
             (<%= comment.user.last_name %><%= comment.user.first_name %>さん
             <%= comment.created_at.strftime('%Y/%m/%d') %>)
-            <% if current_user.id == comment.user.id %>
-              <%= link_to "コメント削除", user_review_comment_path(comment.review.id, comment.id), method: :delete %>
-            <% end %>
+            <%= link_to "コメント削除", comment_path(comment.id), method: :delete %>
           </p>
           <% end %>
         </div>
-      </div>
-      <div>
-        <%= form_with model: [@review, @comment], url: user_review_comments_path(@review.id), method: :post do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-          <div><%= f.submit "コメントする", class: "btn btn-primary" %></div>
-        <% end %>
       </div>
     </div>
 
@@ -45,7 +37,7 @@
       <div>
         <p>主な使用シーン</p>
         <div class="d-flex flex-wrap">
-          <% @review_tags.each do |tag| %>
+          <% @review.tags.each do |tag| %>
           #<%= tag.name %>
           <% end %>
         </div>
@@ -111,10 +103,8 @@
       <div>
         <p>レビュー：<%= @review.status_i18n %></p>
       </div>
-      <% if @review.user.id == current_user.id %>
-        <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
-        <%= link_to "削除する", user_review_path(@review.id), method: :delete, class:"link btn btn-sm btn-success"  %>
-      <% end %>
+        <%= link_to "編集する", edit_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
+        <%= link_to "削除する", review_path(@review.id), method: :delete, class:"link btn btn-sm btn-danger"  %>
     </div>
   </div>
 

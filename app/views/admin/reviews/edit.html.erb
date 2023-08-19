@@ -1,10 +1,10 @@
 <div class="container">
-  <%= form_with model: @review, url: user_reviews_path, method: :post do |f| %>
+  <%= form_with model: @review, url: review_path(@review.id), method: :patch do |f| %>
     <div class="row justify-content-center"> <!--d-flexは削除-->
       <div class="col-md-6">
 
         <!-- 車種名表示 -->
-        <h3><%= @car_item.name %></h3>
+        <h3><%= @review.car_item.name %></h3>
 
         <!-- 主な使用シーン選択 -->
         <div class="mb-3">
@@ -70,8 +70,8 @@
           <%= f.text_area :complain, class: 'form-control' %>
         </div>
 
-        <%= f.hidden_field :car_item_id, value: @car_item.id %>
-        
+        <%= f.hidden_field :car_item_id, value: @review.car_item.id %>
+
         <!-- レビューの公開、非公開選択 -->
         <div class="mb-3">
           <p>レビューの公開、非公開選択</p>

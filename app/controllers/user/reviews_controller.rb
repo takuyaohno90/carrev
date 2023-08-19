@@ -20,8 +20,9 @@ class User::ReviewsController < ApplicationController
     evaluation_cal
     if @review.save
       tag_list = params[:review][:name]
-      # tag_list = tag_params[:name].split(",")
-      @review.save_tag(tag_list)
+      #@review.save_tag(tag_list)
+      
+      byebug
       redirect_to user_review_url(@review.id)
     else
       puts @review.errors.full_messages
@@ -32,6 +33,11 @@ class User::ReviewsController < ApplicationController
   def show
     @review = Review.find(params[:id])
     @review_tags = @review.tags
+    @comment = Comment.new
+    #非公開記事詳細ページは、他のユーザーにアクセス時にはリダイレクトさせる
+    unless @review.user == current_user
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -46,7 +52,7 @@ class User::ReviewsController < ApplicationController
     if @review.update(review_params)
       tag_list = params[:review][:name]
       @review.save_tag(tag_list)
-      redirect_to user_review_url(@review.id)
+      redirect_to user_review_path(@review.id)
     else
       puts @review.errors.full_messages
       redirect_to root_path
@@ -60,17 +66,13 @@ class User::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.all
+    @reviews = Review.where(status: 0)
   end
 
   private
 
   def review_params
-    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance)
-  end
-
-  def tag_params
-    params.require(:review).permit(:name)
+    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status)
   end
 
   def evaluation_cal

@@ -1,15 +1,16 @@
 <div class="container">
-  <div class="row">
-    <p>レビュー一覧</p>
-    <div>
+  <div>
+    <div class="row">レビュー一覧</div>
+    <div class="row">
       <table class="table table-bordered table-striped">
         <thead class="thead-light">
           <tr>
             <th>車種名</th>
             <th>メーカー</th>
-            <th>タイトルー</th>
+            <th>タイトル</th>
             <th>投稿者</th>
             <th>投稿日</th>
+            <th></th>
           </tr>
         </thead>
         <% @reviews.each do |review| %>
@@ -17,9 +18,10 @@
           <tr>
             <td><%= review.car_item.name %></td>
             <td><%= review.car_item.maker.name %></td>
-            <td><%= link_to user_review_path(review.id) do %><%= review.title_rev %><% end %></td>
+            <td><%= link_to review_path(review.id) do %><%= review.title_rev %><% end %></td>
             <td><%= review.user.first_name %><%= review.user.last_name %></td>
             <td><%= review.updated_at.strftime("%Y/%m/%d") %></td>
+            <td><%= link_to "削除する", review_path(review.id), method: :delete, class:"link btn btn-sm btn-danger"  %></td>
           </tr>
         </tbody>
         <% end %>

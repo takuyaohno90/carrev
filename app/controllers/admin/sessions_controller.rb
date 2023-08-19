@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::SessionsController < Devise::SessionsController
+  before_action :authenticate_admin!, except: [:top]
+  
   def after_sign_in_path_for(resource)
     admin_path
   end

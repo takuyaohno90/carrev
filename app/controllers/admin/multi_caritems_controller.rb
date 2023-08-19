@@ -1,4 +1,5 @@
 class Admin::MultiCaritemsController < ApplicationController
+  before_action :authenticate_admin!
   def new
     @caritem = CarItem.new
   end

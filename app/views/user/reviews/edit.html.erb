@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with model: @review, url: user_reviews_path(@review.id), method: :post do |f| %>
+  <%= form_with model: @review, url: user_review_path(@review.id), method: :patch do |f| %>
     <div class="row justify-content-center"> <!--d-flexは削除-->
       <div class="col-md-6">
 
@@ -71,6 +71,19 @@
         </div>
 
         <%= f.hidden_field :car_item_id, value: @review.car_item.id %>
+        
+        <!-- レビューの公開、非公開選択 -->
+        <div class="mb-3">
+          <p>レビューの公開、非公開選択</p>
+          <div>
+            <%= f.radio_button :status, Review.statuses.key(0) %>
+            <%= f.label :status_release, Review.statuses_i18n[:release] %>
+          </div>
+          <div>
+            <%= f.radio_button :status, Review.statuses.key(1) %>
+            <%= f.label :status_local, Review.statuses_i18n[:local] %>
+          </div>
+        </div>
 
         <!-- 送信ボタン -->
         <div class="d-flex justify-content-center">

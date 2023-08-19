@@ -1,4 +1,5 @@
 class Admin::CaritemsController < ApplicationController
+  before_action :authenticate_admin!
   def check
   end
 

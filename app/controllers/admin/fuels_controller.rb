@@ -1,4 +1,5 @@
 class Admin::FuelsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @fuel = Fuel.new

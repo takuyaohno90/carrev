@@ -1,0 +1,29 @@
+<div class="container">
+  <div>
+    <div class="row">会員一覧</div>
+    <div class="row">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th>ユーザーID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>レビュー投稿数</th>
+          </tr>
+        </thead>
+        <% @users.each do |user| %>
+        <tbody>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= link_to user_path(user.id) do %>
+                  <%= user.last_name %><%= user.first_name %>
+                <% end %></td>
+            <td><%= user.email %></td>
+            <td><%= user.reviews.count %>件</td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
