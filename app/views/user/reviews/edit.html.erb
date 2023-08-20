@@ -10,12 +10,13 @@
         <div class="mb-3">
           <label>主な使用シーン選択：</label>
           <div class="d-flex flex-wrap">
+            <p>タグの例
             <% @default_tags.each do |tag| %>
+            <%= tag %>,
+            <% end %></p>
               <div class="form-check mr-3 mb-2">
-                <%= check_box_tag 'review[name][]', tag, @review.tags.include?(tag), class: "form-check-input" %>
-                <%= label_tag tag, tag, class: "form-check-label" %>
+                <%= f.text_field :name,value: @tag_list,class:"form-control"%>
               </div>
-            <% end %>
           </div>
         </div>
 
@@ -71,7 +72,7 @@
         </div>
 
         <%= f.hidden_field :car_item_id, value: @review.car_item.id %>
-        
+
         <!-- レビューの公開、非公開選択 -->
         <div class="mb-3">
           <p>レビューの公開、非公開選択</p>

@@ -2,7 +2,7 @@ class Review < ApplicationRecord
   belongs_to :car_item
   belongs_to :user
   has_many :taggings, dependent: :destroy
-  has_many :tags, through: :taggings
+  has_many :tags, through: :taggings, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_one_attached :image
 
@@ -10,7 +10,7 @@ class Review < ApplicationRecord
 
   validates :car_item_id, :user_id, :favorite, :complain, :design, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :evaluation, :title_rev, :status,  presence: true
 
-  def save_tag(sent_tags) #sent_tags=["aaa", "bbb", "ccc"]]→新規投稿のparams[:rweview][:name]で送られてくる
+  def save_tag(sent_tags) #sent_tags=["aaa", "bbb", "ccc"]]→新規投稿のparams[:review][:name]で送られてくる
     current_tags = self.tags.pluck(:name) unless self.tags.nil? #新規投稿の場合は空
     old_tags = current_tags - sent_tags
     new_tags = sent_tags - current_tags
@@ -21,7 +21,10 @@ class Review < ApplicationRecord
 
     new_tags.each do |new|
       new_tag = Tag.find_or_create_by(name: new)
-      self.tags << new_tag
+      # タグがまだ追加されていない場合のみ追加
+      unless self.tags.include?(new_tag)
+        self.tags << new_tag
+      end
     end
   end
 

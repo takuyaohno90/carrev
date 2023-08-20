@@ -18,12 +18,42 @@ class Admin::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     evaluation_cal
     if @review.update(review_params)
-      tag_list = params[:review][:name]
-      @review.save_tag(tag_list)
-      redirect_to review_path(@review.id)
+      tag_list = params[:review][:name] #["通勤通学", "送迎"]
+      #@review.save_tag(tag_list)
+      #新規タグを登録していく
+      tag_list.each do |tag_name|
+        tag = Tag.find_by(name: tag_name)
+        unless tag
+          new_tag = Tag.create(name: tag_name)
+          if new_tag.persisted?
+            puts "タグ登録成功"
+          else
+            puts "タグ登録失敗"
+          end
+        end
+      end
+      #登録済みのtaggingがある場合削除
+      if Tagging.find_by(review_id: @review.id)
+        Tagging.where(review_id: @review.id).destroy_all
+      end
+      #taggingを登録していく
+      tag_list.each do |tag_name|
+        tag = Tag.find_by(name: tag_name)
+        if tag
+          tagging = Tagging.new(review_id: @review.id, tag_id: tag.id)
+          if tagging.save
+            puts "tagging登録成功"
+          else
+            puts "tagging登録失敗"
+          end
+        else
+          puts "タグがTagモデルに存在しません"
+        end
+      end
+      redirect_to user_review_url(@review.id)
     else
       puts @review.errors.full_messages
-      redirect_to admin_path
+      redirect_to root_path
     end
   end
 

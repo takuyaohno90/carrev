@@ -18,11 +18,11 @@ class User::ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.user_id = current_user.id
     evaluation_cal
+    #tag_list = params[:review][:name].split(",")
+    tag_list = params[:review][:name]
     if @review.save
-      tag_list = params[:review][:name]
-      #@review.save_tag(tag_list)
-      
-      byebug
+      #新規タグを登録していく
+      @review.save_tag(tag_list)
       redirect_to user_review_url(@review.id)
     else
       puts @review.errors.full_messages
@@ -44,15 +44,21 @@ class User::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @review_tags = @review.tags
     @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
+    @tag_list = @review.tags.pluck(:name).join(',')
+    #非公開記事詳細ページは、他のユーザーにアクセス時にはリダイレクトさせる
+    unless @review.user == current_user
+      redirect_to root_path
+    end
   end
 
   def update
     @review = Review.find(params[:id])
     evaluation_cal
+    tag_list = params[:review][:name].split(",")
     if @review.update(review_params)
-      tag_list = params[:review][:name]
+      #新規タグを登録していく
       @review.save_tag(tag_list)
-      redirect_to user_review_path(@review.id)
+      redirect_to user_review_url(@review.id)
     else
       puts @review.errors.full_messages
       redirect_to root_path
@@ -62,7 +68,7 @@ class User::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to root_path
+    redirect_to user_reviews_path
   end
 
   def index
@@ -70,7 +76,7 @@ class User::ReviewsController < ApplicationController
   end
 
   private
-
+#, tag_ids: []
   def review_params
     params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status)
   end

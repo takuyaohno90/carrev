@@ -1,9 +1,9 @@
 class Tag < ApplicationRecord
-  has_many :taggings, dependent: :destroy, foreign_key: 'tag_id'
-  has_many :reviews, through: :taggings
+  has_many :taggings, dependent: :destroy
+  has_many :reviews, through: :taggings, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  
+
     private
 
     # タグ名を小文字に変換
