@@ -14,43 +14,25 @@ class Admin::ReviewsController < ApplicationController
     @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
   end
 
+  def new_tag
+    @review = Review.find(params[:id])
+    @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
+  end
+
+  def create_tag
+    @review = Review.find(params[:id])
+    tag_list = params[:review][:name]
+    @review.save_tag(tag_list)
+    redirect_to review_path(@review.id)
+  end
+
   def update
     @review = Review.find(params[:id])
-    evaluation_cal
+    evaluation_cal_update
     if @review.update(review_params)
-      tag_list = params[:review][:name] #["通勤通学", "送迎"]
-      #@review.save_tag(tag_list)
-      #新規タグを登録していく
-      tag_list.each do |tag_name|
-        tag = Tag.find_by(name: tag_name)
-        unless tag
-          new_tag = Tag.create(name: tag_name)
-          if new_tag.persisted?
-            puts "タグ登録成功"
-          else
-            puts "タグ登録失敗"
-          end
-        end
-      end
-      #登録済みのtaggingがある場合削除
-      if Tagging.find_by(review_id: @review.id)
-        Tagging.where(review_id: @review.id).destroy_all
-      end
-      #taggingを登録していく
-      tag_list.each do |tag_name|
-        tag = Tag.find_by(name: tag_name)
-        if tag
-          tagging = Tagging.new(review_id: @review.id, tag_id: tag.id)
-          if tagging.save
-            puts "tagging登録成功"
-          else
-            puts "tagging登録失敗"
-          end
-        else
-          puts "タグがTagモデルに存在しません"
-        end
-      end
-      redirect_to user_review_url(@review.id)
+      evaluation_cal
+      @review.save
+      redirect_to new_tag_reviews_path(@review.id)
     else
       puts @review.errors.full_messages
       redirect_to root_path
@@ -66,12 +48,16 @@ class Admin::ReviewsController < ApplicationController
     private
 
   def review_params
-    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance)
+    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status)
   end
 
   def evaluation_cal
-    total = @review.design + @review.fuel_consumptionrev + @review.quietness + @review.vibration + @review.indoor_space + @review.luggage_space + @review.price + @review.maintenance_cost + @review.safety + @review.assistance
-    @review.evaluation = (total / 10.0).round(1)
+    total = @review.design + @review.performance + @review.fuel_consumptionrev + @review.quietness + @review.vibration + @review.indoor_space + @review.luggage_space + @review.price + @review.maintenance_cost + @review.safety + @review.assistance
+    @review.evaluation = (total / 11.0).round(1)
   end
 
+  def evaluation_cal_update
+    total = params[:review][:design].to_i + params[:review][:performance].to_i + params[:review][:fuel_consumptionrev].to_i + params[:review][:quietness].to_i + params[:review][:vibration].to_i + params[:review][:indoor_space].to_i + params[:review][:luggage_space].to_i+ params[:review][:price].to_i + params[:review][:maintenance_cost].to_i + params[:review][:safety].to_i + params[:review][:assistance].to_i
+    @review.evaluation = (total / 11.0).round(1)
+  end
 end

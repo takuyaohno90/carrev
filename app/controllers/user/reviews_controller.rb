@@ -19,33 +19,40 @@ class User::ReviewsController < ApplicationController
     @review.user_id = current_user.id
     evaluation_cal
     #tag_list = params[:review][:name].split(",")
-    tag_list = params[:review][:name]
+
     if @review.save
-      #新規タグを登録していく
-      @review.save_tag(tag_list)
-      redirect_to user_review_url(@review.id)
+      redirect_to new_tag_user_reviews_path(@review.id)
     else
       puts @review.errors.full_messages
       redirect_to root_path
     end
   end
 
+  def new_tag
+    @review = Review.find(params[:id])
+    @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
+  end
+
+  def create_tag
+    @review = Review.find(params[:id])
+    tag_list = params[:review][:name]
+    @review.save_tag(tag_list)
+    redirect_to user_review_path(@review.id)
+  end
+
   def show
     @review = Review.find(params[:id])
     @review_tags = @review.tags
     @comment = Comment.new
-    #非公開記事詳細ページは、他のユーザーにアクセス時にはリダイレクトさせる
-    unless @review.user == current_user
+    #非公開記事詳細ページは、他のユーザーがアクセス時にはリダイレクトさせる
+    if @review.user != current_user && @review.status == 1
       redirect_to root_path
     end
   end
 
   def edit
     @review = Review.find(params[:id])
-    @review_tags = @review.tags
-    @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
-    @tag_list = @review.tags.pluck(:name).join(',')
-    #非公開記事詳細ページは、他のユーザーにアクセス時にはリダイレクトさせる
+    #編集画面ページは、他のユーザーがアクセス時にはリダイレクトさせる
     unless @review.user == current_user
       redirect_to root_path
     end
@@ -53,12 +60,11 @@ class User::ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    evaluation_cal
-    tag_list = params[:review][:name].split(",")
+    evaluation_cal_update
     if @review.update(review_params)
-      #新規タグを登録していく
-      @review.save_tag(tag_list)
-      redirect_to user_review_url(@review.id)
+      evaluation_cal
+      @review.save
+      redirect_to new_tag_user_reviews_path(@review.id)
     else
       puts @review.errors.full_messages
       redirect_to root_path
@@ -82,7 +88,12 @@ class User::ReviewsController < ApplicationController
   end
 
   def evaluation_cal
-    total = @review.design + @review.fuel_consumptionrev + @review.quietness + @review.vibration + @review.indoor_space + @review.luggage_space + @review.price + @review.maintenance_cost + @review.safety + @review.assistance
-    @review.evaluation = (total / 10.0).round(1)
+    total = @review.design + @review.performance + @review.fuel_consumptionrev + @review.quietness + @review.vibration + @review.indoor_space + @review.luggage_space + @review.price + @review.maintenance_cost + @review.safety + @review.assistance
+    @review.evaluation = (total / 11.0).round(1)
+  end
+
+  def evaluation_cal_update
+    total = params[:review][:design].to_i + params[:review][:performance].to_i + params[:review][:fuel_consumptionrev].to_i + params[:review][:quietness].to_i + params[:review][:vibration].to_i + params[:review][:indoor_space].to_i + params[:review][:luggage_space].to_i+ params[:review][:price].to_i + params[:review][:maintenance_cost].to_i + params[:review][:safety].to_i + params[:review][:assistance].to_i
+    @review.evaluation = (total / 11.0).round(1)
   end
 end

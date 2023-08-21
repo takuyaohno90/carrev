@@ -7,17 +7,7 @@
         <h3><%= @car_item.name %></h3>
 
         <!-- 主な使用シーン選択 -->
-        <div class="mb-3">
-          <label>主な使用シーン選択：</label>
-          <div class="d-flex flex-wrap">
-            <% @default_tags.each do |tag| %>
-              <div class="form-check mr-3 mb-2">
-                <%= check_box_tag 'review[name][]', tag, @review.tags.include?(tag), class: "form-check-input" %>
-                <%= label_tag tag, tag, class: "form-check-label" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
+
 
         <!-- 採点 -->
         <div class="mb-3">
