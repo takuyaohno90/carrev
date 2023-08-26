@@ -79,6 +79,16 @@ class User::ReviewsController < ApplicationController
 
   def index
     @reviews = Review.where(status: 0)
+    @tag_list = Tag.all
+  end
+
+  def tag_search
+    #検索結果画面でもタグ一覧表示
+    @tag_list = Tag.all
+    #検索されたタグを受け取る
+    @tag = Tag.find(params[:id])
+    #検索されたタグに紐づく投稿を表示
+    @reviews = @tag.reviews.where(status: 0)
   end
 
   private
