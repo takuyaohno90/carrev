@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if @car_item.any? %>
+      <ul>
+        <% @car_item.each do |car_item| %>
+          <li>
+            <%= car_item.maker.name %><%= car_item.name %>
+            <%= form_with url: index_rev_carname_user_reviews_path, method: :get do |form| %>
+              <%= form.hidden_field :car_item_id, :value => car_item.id %>
+              <%= form.submit "レビュー一覧へ" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <% else %>
+        <p>該当するアイテムは見つかりませんでした。</p>
+      <% end %>
+    </div>
+  </div>
+</div>

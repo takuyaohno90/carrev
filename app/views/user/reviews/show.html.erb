@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col-md-6">
       <div>
+        メーカー：<%= @review.maker.name %>
+      </div>
+      <div>
         車種：<%= @review.car_item.name %>
       </div>
       <div>
@@ -35,7 +38,7 @@
       </div>
       <div>
         <%= form_with model: [@review, @comment], url: user_review_comments_path(@review.id), method: :post do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントを入力" %>
           <div><%= f.submit "コメントする", class: "btn btn-primary" %></div>
         <% end %>
       </div>
@@ -113,8 +116,16 @@
       </div>
       <% if @review.user.id == current_user.id %>
         <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
-        <%= link_to "削除する", user_review_path(@review.id), method: :delete, class:"link btn btn-sm btn-success"  %>
+        <%= link_to "削除する", user_review_path(@review.id), method: :delete, class:"link btn btn-sm btn-danger"  %>
       <% end %>
+      <div class="mt-1">
+        <%= form_with url: new_user_review_path, method: :get do |form| %>
+          <%= form.hidden_field :car_item_id, :value => @review.car_item.id %>
+          <%= form.submit "#{@review.car_item.name}のレビューを投稿する", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+    <div>
     </div>
   </div>
 

@@ -1,13 +1,19 @@
-<% if @search_results.any? %>
-  <ul>
-    <% @search_results.each do |car_item| %>
-      <li><%= car_item.name %></li>
-      <%= form_with url: new_user_review_url, method: :get do |form| %>
-        <%= form.hidden_field :car_item_id, :value => car_item.id %>
-        <%= form.submit "投稿画面へ" %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if @search_results.any? %>
+      <ul>
+        <% @search_results.each do |car_item| %>
+          <li><%= car_item.maker.name %><%= car_item.name %></li>
+          <%= form_with url: new_user_review_path, method: :get do |form| %>
+            <%= form.hidden_field :car_item_id, :value => car_item.id %>
+            <%= form.submit "投稿画面へ" %>
+          <% end %>
+        <% end %>
+      </ul>
+      <% else %>
+        <p>該当するアイテムは見つかりませんでした。</p>
       <% end %>
-    <% end %>
-  </ul>
-<% else %>
-  <p>該当するアイテムは見つかりませんでした。</p>
-<% end %>
+    </div>
+  </div>
+</div>

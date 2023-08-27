@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :car_item
   belongs_to :user
+  belongs_to :maker
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -8,7 +9,7 @@ class Review < ApplicationRecord
 
   enum status: { release: 0, local: 1 }
 
-  validates :car_item_id, :user_id, :favorite, :complain, :design, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :evaluation, :title_rev, :status,  presence: true
+  validates :car_item_id, :user_id, :favorite, :complain, :design, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :evaluation, :title_rev, :status, :maker_id, presence: true
 
   def save_tag(sent_tags) #sent_tags=["aaa", "bbb", "ccc"]]→新規投稿のparams[:review][:name]で送られてくる
     current_tags = self.tags.pluck(:name) unless self.tags.nil? #新規投稿の場合は空

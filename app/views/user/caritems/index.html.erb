@@ -1,0 +1,31 @@
+<div class="container">
+  <div>
+    <div class="row">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th>車種ID</th>
+            <th>メーカーID</th>
+            <th>燃料</th>
+            <th>ボディタイプ</th>
+            <th>車種名</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @caritems.each do |caritem| %>
+          <tr>
+            <td><%= caritem.id %></td>
+            <td><%= caritem.maker.name %></td>
+            <td><%= caritem.fuel.name %></td>
+            <td><%= caritem.bodytype.name %></td>
+            <td><%= caritem.name %></td>
+            <td><%= link_to "詳細", user_caritem_path(caritem.id), class: "btn btn-info btn-sm" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @caritems %>
+    </div>
+  </div>
+</div>

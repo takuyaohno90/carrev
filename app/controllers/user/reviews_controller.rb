@@ -1,5 +1,10 @@
 class User::ReviewsController < ApplicationController
   def search
+    @maker = Maker.all
+  end
+  
+  def result_new_maker
+    @maker = Maker.find(params[:id])
   end
 
   def result
@@ -91,10 +96,30 @@ class User::ReviewsController < ApplicationController
     @reviews = @tag.reviews.where(status: 0)
   end
 
+  def search_rev
+    @maker = Maker.all
+    @tag_list = Tag.all
+  end
+
+  def result_rev_maker
+    @maker = Maker.find(params[:id])
+  end
+
+  def result_rev_carname
+    keyword = params[:keyword]
+    @car_item = CarItem.where("name LIKE ?", "%#{keyword}%")
+  end
+
+  def index_rev_carname
+    id = params[:car_item_id]
+    car_item = CarItem.find(id)
+    @reviews = car_item.reviews
+  end
+
   private
 #, tag_ids: []
   def review_params
-    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status)
+    params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status, :maker_id)
   end
 
   def evaluation_cal

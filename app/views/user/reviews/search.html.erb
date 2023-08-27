@@ -1,8 +1,26 @@
 <div class="container">
-  <div class="row">
-    <%= form_with url: result_user_reviews_url, method: :get do |form| %>
-      <%= form.text_field :keyword, placeholder: "キーワードを入力してください" %>
-      <%= form.submit "検索" %>
-    <% end %>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="mb-3">
+        メーカーで検索
+        <div>
+          <% @maker.each do |maker| %>
+            ・<%= link_to maker.name, result_new_maker_user_reviews_path(maker.id) %>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        車種名で検索(例：プリウス)
+        <div>
+          <%= form_with url: result_user_reviews_path, method: :get do |form| %>
+            <%= form.text_field :keyword, placeholder: "キーワードを入力してください" %>
+            <%= form.submit "検索" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>

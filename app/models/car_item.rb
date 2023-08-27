@@ -2,7 +2,8 @@ class CarItem < ApplicationRecord
   belongs_to :maker
   belongs_to :bodytype
   belongs_to :fuel
-  
+  has_many :reviews
+
   validates :maker_id, presence: true
   validates :fuel_id, presence: true
   validates :bodytype_id, presence: true
