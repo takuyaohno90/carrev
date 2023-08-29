@@ -67,6 +67,10 @@
         <td><%= f.label :size, "全長×全幅×全高" %></td>
         <td><%= f.text_field :size %></td>
       </tr>
+      <tr>
+        <td><%= f.label :image, "車種画像" %></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+      </tr>
     </tbody>
   </table>
   </div>

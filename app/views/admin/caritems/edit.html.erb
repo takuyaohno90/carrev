@@ -64,6 +64,10 @@
           <td><%= caritem.label :size, "全長×全幅×全高" %></td>
           <td><%= caritem.text_field :size %></td>
         </tr>
+        <tr>
+          <td><%= caritem.label :car_image, "車種画像" %></td>
+          <td><%= caritem.file_field :car_image, accept: "image/*" %></td>
+        </tr>
       </tbody>
     </table>
   </div>

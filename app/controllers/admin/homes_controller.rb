@@ -1,6 +1,6 @@
 class Admin::HomesController < ApplicationController
   def top
-    @caritems = CarItem.all
+    @caritems = CarItem.page(params[:page]).per(20)
   end
-  
+
 end

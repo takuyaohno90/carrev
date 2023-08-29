@@ -1,7 +1,7 @@
 <div class="container">
   <%= form_with model: @review, url: user_reviews_path, method: :post do |f| %>
     <div class="row justify-content-center"> <!--d-flexは削除-->
-      <div class="col-md-6">
+      <div class="col-md-8">
 
         <!-- 車種名表示 -->
         <h3><%= @car_item.maker.name %><%= @car_item.name %></h3>
