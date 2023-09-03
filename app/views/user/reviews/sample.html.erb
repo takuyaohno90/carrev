@@ -1,0 +1,107 @@
+  def car_item_evaluation_cal
+    count = @review.car_item.review_count
+
+    @review.car_item.design_car = (((@review.car_item.design_car * count) + @review.design) / (count + 1)).round(1)
+    @review.car_item.performance_car = (((@review.car_item.performance_car * count) + @review.performance) / (count + 1)).round(1)
+    @review.car_item.fuel_consumptionrev_car = (((@review.car_item.fuel_consumptionrev_car * count) + @review.fuel_consumptionrev) / (count + 1)).round(1)
+    @review.car_item.quietness_car = (((@review.car_item.quietness_car * count) + @review.quietness) / (count + 1)).round(1)
+    @review.car_item.vibration_car = (((@review.car_item.vibration_car * count) + @review.vibration) / (count + 1)).round(1)
+    @review.car_item.indoor_space_car = (((@review.car_item.indoor_space_car * count) + @review.indoor_space) / (count + 1)).round(1)
+    @review.car_item.luggage_space_car = (((@review.car_item.luggage_space_car * count) + @review.luggage_space) / (count + 1)).round(1)
+    @review.car_item.price_car = (((@review.car_item.price_car * count) + @review.price) / (count + 1)).round(1)
+    @review.car_item.maintenance_cost_car = (((@review.car_item.maintenance_cost_car * count) + @review.maintenance_cost) / (count + 1)).round(1)
+    @review.car_item.safety_car = (((@review.car_item.safety_car * count) + @review.safety) / (count + 1)).round(1)
+    @review.car_item.assistance_car = (((@review.car_item.assistance_car * count) + @review.assistance) / (count + 1)).round(1)
+    @review.car_item.evaluation_car = (((@review.car_item.evaluation_car * count) + @review.evaluation) / (count + 1)).round(1)
+    @review.car_item.review_count = @review.car_item.review_count + 1
+    car_item_evaluation_cal_debug
+    @review.car_item.save
+  end
+  
+  def car_item_evaluation_cal_delete
+    count = @review.car_item.review_count
+
+    if count == 1
+      @review.car_item.design_car = 3.0
+      @review.car_item.performance_car = 3.0
+      @review.car_item.fuel_consumptionrev_car = 3.0
+      @review.car_item.quietness_car = 3.0
+      @review.car_item.vibration_car = 3.0
+      @review.car_item.indoor_space_car = 3.0
+      @review.car_item.luggage_space_car = 3.0
+      @review.car_item.price_car = 3.0
+      @review.car_item.maintenance_cost_car = 3.0
+      @review.car_item.safety_car = 3.0
+      @review.car_item.assistance_car = 3.0
+      @review.car_item.evaluation_car = 3.0
+      @review.car_item.review_count = 0
+      @review.car_item.save
+    else
+      @review.car_item.design_car = (((@review.car_item.design_car * count) - @review.design) / (count - 1)).round(1)
+      @review.car_item.performance_car = (((@review.car_item.performance_car * count) - @review.performance) / (count - 1)).round(1)
+      @review.car_item.fuel_consumptionrev_car = (((@review.car_item.fuel_consumptionrev_car * count) + @review.fuel_consumptionrev) / (count - 1)).round(1)
+      @review.car_item.quietness_car = (((@review.car_item.quietness_car * count) - @review.quietness) / (count - 1)).round(1)
+      @review.car_item.vibration_car = (((@review.car_item.vibration_car * count) - @review.vibration) / (count - 1)).round(1)
+      @review.car_item.indoor_space_car = (((@review.car_item.indoor_space_car * count) - @review.indoor_space) / (count - 1)).round(1)
+      @review.car_item.luggage_space_car = (((@review.car_item.luggage_space_car * count) - @review.luggage_space) / (count - 1)).round(1)
+      @review.car_item.price_car = (((@review.car_item.price_car * count) - @review.price) / (count - 1)).round(1)
+      @review.car_item.maintenance_cost_car = (((@review.car_item.maintenance_cost_car * count) - @review.maintenance_cost) / (count - 1)).round(1)
+      @review.car_item.safety_car = (((@review.car_item.safety_car * count) - @review.safety) / (count - 1)).round(1)
+      @review.car_item.assistance_car = (((@review.car_item.assistance_car * count) - @review.assistance) / (count - 1)).round(1)
+      @review.car_item.evaluation_car = (((@review.car_item.evaluation_car * count) - @review.evaluation) / (count - 1)).round(1)
+      @review.car_item.review_count = @review.car_item.review_count - 1
+      @review.car_item.save
+    end
+    car_item_evaluation_cal_debug
+  end
+  
+  def reset_car_item
+    @car_items.each do |car_item|
+      car_item.commuting_tag_count = 0
+      car_item.pick_up_tag_count = 0
+      car_item.shopping_tag_count = 0
+      car_item.sports_tag_count = 0
+      car_item.outdoor_tag_count = 0
+      car_item.offroad_tag_count = 0
+      car_item.long_distance_tag_count = 0
+      car_item.enjoy_tag_count = 0
+      car_item.design_car = 3.0
+      car_item.performance_car = 3.0
+      car_item.fuel_consumptionrev_car = 3.0
+      car_item.quietness_car = 3.0
+      car_item.vibration_car = 3.0
+      car_item.indoor_space_car = 3.0
+      car_item.luggage_space_car = 3.0
+      car_item.price_car = 3.0
+      car_item.maintenance_cost_car = 3.0
+      car_item.safety_car = 3.0
+      car_item.assistance_car = 3.0
+      car_item.evaluation_car = 3.0
+      car_item.review_count = 0
+      car_item.save
+    end
+  end
+  
+  def tag_count
+    @tag_list.each do |tag|
+      case tag
+      when "通勤通学" then
+        @review.car_item.commuting_tag_count = @review.car_item.commuting_tag_count + 1
+      when "送迎" then
+        @review.car_item.pick_up_tag_count = @review.car_item.pick_up_tag_count + 1
+      when "買い物" then
+        @review.car_item.shopping_tag_count = @review.car_item.shopping_tag_count + 1
+      when "スポーツ" then
+        @review.car_item.sports_tag_count = @review.car_item.sports_tag_count + 1
+      when "アウトドア" then
+        @review.car_item.outdoor_tag_count = @review.car_item.outdoor_tag_count + 1
+      when "オフロード" then
+        @review.car_item.offroad_tag_count = @review.car_item.offroad_tag_count + 1
+      when "長距離" then
+        @review.car_item.long_distance_tag_count = @review.car_item.long_distance_tag_count + 1
+      when "走りを楽しむ" then
+        @review.car_item.enjoy_tag_count = @review.car_item.enjoy_tag_count + 1
+      end
+      @review.car_item.save
+    end
+  end
