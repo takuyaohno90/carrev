@@ -3,11 +3,11 @@
     <%= form_with url: result_user_car_searches_path, method: :get do |f| %>
     <div>
       <div class="mb-3">
-        ①利用目的選択
+        ①利用目的選択(2つまで)
         <div>
-          <% @tag.each do |tag| %>
-          <%= f.radio_button :tag_id, tag.id %>
-          <%= tag.name %>
+          <% @default_tags.each do |tag| %>
+          <%= check_box_tag 'tags[]', tag %>
+          <%= tag %>
           <% end %>
         </div>
       </div>
