@@ -3,16 +3,15 @@
     <%= form_with url: result_user_car_searches_path, method: :get do |f| %>
     <div>
       <div class="mb-3">
-        ①利用目的選択(2つまで)
+        メーカー選択(選択無しでも可)
         <div>
-          <% @default_tags.each do |tag| %>
-          <%= check_box_tag 'tags[]', tag %>
-          <%= tag %>
+          <% @maker.each do |maker| %>
+            <%= f.radio_button :maker_id, maker.id %>
+            <%= maker.name %>
           <% end %>
         </div>
-      </div>
       <div class="mb-3">
-        ②人数選択
+        人数選択
         <div>
           <%= f.radio_button :num_people, 2 %>
           <%= f.label :num_people, "2人以下" %>
@@ -25,29 +24,38 @@
         </div>
       </div>
       <div class="mb-3">
-        ③ボディタイプ選択
+        ボディタイプ選択
         <div>
           <% @bodytype.each do |bodytype| %>
-          <%= f.radio_button :bodytype_id, bodytype.id %>
-          <%= bodytype.name %>
+            <%= f.radio_button :bodytype_id, bodytype.id %>
+            <%= bodytype.name %>
           <% end %>
         </div>
       </div>
       <div class="mb-3">
-        ③燃料種別選択
+        燃料種別選択
         <div>
           <% @fuel.each do |fuel| %>
-          <%= f.radio_button :fuel_id, fuel.id %>
-          <%= fuel.name %>
+            <%= f.radio_button :fuel_id, fuel.id %>
+            <%= fuel.name %>
           <% end %>
         </div>
       </div>
       <div class="mb-3">
-        ③こだわり条件選択(2つまで)
+        利用目的選択(2つまで)
+        <div>
+          <% @default_tags.each do |tag| %>
+            <%= check_box_tag 'tags[]', tag %>
+            <%= tag %>
+          <% end %>
+        </div>
+      </div>
+      <div class="mb-3">
+        こだわり条件選択(2つまで)
         <div>
           <% @discerning.each do |discerning| %>
-          <%= check_box_tag 'discerning[]', discerning %>
-          <%= discerning %>
+            <%= check_box_tag 'discerning[]', discerning %>
+            <%= discerning %>
           <% end %>
         </div>
       </div>

@@ -1,6 +1,7 @@
 class User::CarSearchesController < ApplicationController
 
   def new
+    @maker = Maker.all
     @bodytype = Bodytype.all
     @fuel = Fuel.all
     @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
@@ -9,17 +10,21 @@ class User::CarSearchesController < ApplicationController
 
   def result
     @car_items = CarItem.all
+    maker_id = params[:maker_id]
     num_people = params[:num_people]
     bodytype_id = params[:bodytype_id]
     fuel_id = params[:fuel_id]
 
+    # メーカーで絞込
+    if maker_id.present?
+      @car_items = @car_items.where(maker_id: maker_id)
+    end
+    
     # 人数で絞込
     if num_people.present? && num_people == "6"
       @car_items = @car_items.where("num_people >= 6")
     elsif num_people.present? && num_people != "6"
       @car_items = @car_items.where(num_people: num_people)
-    else
-      
     end
     # デバッグ用
     # @car_items.each do |car_item|
@@ -32,8 +37,6 @@ class User::CarSearchesController < ApplicationController
       @car_items_bodytype_id = @car_items.where(bodytype_id: bodytype_id)
       if @car_items_bodytype_id.present?  && @car_items_bodytype_id.size >= 3
         @car_items = @car_items_bodytype_id
-      else
-        
       end
     end
 
