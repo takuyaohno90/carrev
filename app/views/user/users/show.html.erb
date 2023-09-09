@@ -1,14 +1,7 @@
 <div class="container">
-  <div class="row" style="margin-top: 10px;">
-    <div class="col-lg-1">
-      登録情報
-    </div>
-    <div class="col-lg-2">
-      <%= link_to '編集する', user_informaition_edit_path, class: "btn btn-sm btn-success" %>
-    </div>
-  </div>
 
-  <div class="row" style="margin-top: 10px;">
+  <div class="row d-flex justify-content-conter" style="margin-top: 10px; max-width:100%;">
+    <div class="col-lg-12">
     <table class="table table-bordered">
       <tr>
         <th>氏名</th>
@@ -23,28 +16,40 @@
         <td><%= current_user.email %></td>
       </tr>
     </table>
+
+    </div>
   </div>
-  <div>レビュー一覧</div>
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th>車種名</th>
-          <th>メーカー</th>
-          <th>タイトル</th>
-          <th>投稿日</th>
-        </tr>
-      </thead>
-      <% @reviews.each do |review| %>
-      <tbody>
-        <tr>
-          <td><%= review.car_item.name %></td>
-          <td><%= review.car_item.maker.name %></td>
-          <td><%= link_to user_review_path(review.id) do %><%= review.title_rev %><% end %></td>
-          <td><%= review.updated_at.strftime("%Y/%m/%d") %></td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>
+
+  <div class="row" style=" max-width:100%;">
+    <div class="col-lg-12 text-right">
+      <%= link_to '登録内容を編集する', user_informaition_edit_path, class: "btn btn-sm btn-success" %>
+    </div>
   </div>
+
+<div>
+  <h2>レビュー一覧</h2>
+  <div class="row">
+    <% @reviews.each do |review| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <!-- カードのヘッダー -->
+        <div class="card-header">
+          <h5 class="card-title"><%= review.title_rev %></h5>
+        </div>
+        <!-- カードの本文 -->
+        <div class="card-body">
+          <p class="card-text">車種名: <%= review.car_item.name %></p>
+          <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
+          <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
+          <!-- レビュー詳細へのリンク -->
+          <%= link_to user_review_path(review.id), class: "btn btn-primary" do %>
+            詳細を見る
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
 </div>

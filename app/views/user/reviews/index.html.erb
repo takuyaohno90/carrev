@@ -3,35 +3,26 @@
     <div class="row mt-3">
       <% @tag_list.each do |list| %>
         <i class="fa-sharp fa-solid fa-tag"></i>
-        <%=link_to list.name, tag_search_user_reviews_path(list.id) %>
+        <%= link_to list.name, tag_search_user_reviews_path(list.id) %>
         <%="(#{list.reviews.count})" %>
       <% end %>
     </div>
     <div class="row">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th>タイトル</th>
-            <th>車種名</th>
-            <th>メーカー</th>
-            <th>投稿者</th>
-            <th>投稿日</th>
-          </tr>
-        </thead>
-        <% @reviews.each do |review| %>
-        <tbody>
-          <tr>
-            <td><%= link_to user_review_path(review.id) do %><%= review.title_rev %><% end %></td>
-            <td><%= review.car_item.name %></td>
-            <td><%= review.car_item.maker.name %></td>
-            <td><%= review.user.first_name %><%= review.user.last_name %></td>
-            <td><%= review.updated_at.strftime("%Y/%m/%d") %></td>
-          </tr>
-        </tbody>
-        <% end %>
-      </table>
+      <% @reviews.each do |review| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title"><%= link_to user_review_path(review.id), class: "text-dark" do %><%= review.title_rev %><% end %></h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">車種名: <%= review.car_item.name %></p>
+              <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
+              <p class="card-text">投稿者: <%= review.user.first_name %><%= review.user.last_name %></p>
+              <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-
   </div>
-
 </div>

@@ -43,8 +43,6 @@
                 <li class="nav-item"><%= link_to "レビュー一覧", reviews_path, class: 'nav-link text-white'  %></li>
                 <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-white'  %></li>
               <% else %>
-                <li class="nav-item"><%= link_to "About", about_path, class: 'nav-link text-white'  %></li>
-                <!--<li class="nav-item"><= link_to "車種一覧", items_path, class: 'nav-link text-white'  %></li>-->
                 <li class="nav-item"><%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white'  %></li>
                 <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link text-white'  %></li>
               <% end %>

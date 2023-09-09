@@ -20,7 +20,26 @@
     font-size: 36px;
     color: #163560;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    
+  }
+
+  .with-border {
+    border-top: 2px solid #ccc; /* 上側の線 */
+    border-bottom: 1px solid #ccc; /* 下側の線 */
+  }
+
+  .car-item {
+    display:inline-block;
+    text-align:center;
+    margin-right: 20px;
+  }
+
+  .car-img{
+    display:block;
+  }
+
+  .car-name{
+    display:block;
+    text-align:center;
   }
 
   .custom-link:hover {
@@ -33,5 +52,9 @@
   }
   .table th {
     font-weight: bold;
-    background-color: #f8f9fa; /* ヘッダーの背景色 */
+    background-color: #eee; /* ヘッダーの背景色 */
+  }
+
+  .table td{
+    background-color:#fff;
   }
