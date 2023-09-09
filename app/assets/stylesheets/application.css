@@ -1,15 +1,37 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+  /* グローバルスタイル */
+  .body {
+    font-family:Arial, sans-serif;
+    background-color: #aad6ec; /* 水色 */
+  }
+
+  .fa-car-on {
+    font-size: 36px; /* フォントサイズを調整 */
+    color: #ff5722; /* アイコンの色を指定 */
+    margin-right: 10px; /* 右側に余白を追加 */
+  }
+
+  .custom-link {
+    color: #000; /* リンクのテキスト色を黒色に設定 */
+    text-decoration: none; /* リンクの下線を削除 */
+  }
+
+  .top-page-class {
+    font-family: 'Meiryo', sans-serif;
+    font-size: 36px;
+    color: #163560;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
+  }
+
+  .custom-link:hover {
+    color: #333; /* ホバー時のテキスト色を変更（任意） */
+  }
+
+  /* カスタムスタイルの追加 */
+  .table th, .table td {
+    vertical-align: middle; /* セルの中央配置 */
+  }
+  .table th {
+    font-weight: bold;
+    background-color: #f8f9fa; /* ヘッダーの背景色 */
+  }

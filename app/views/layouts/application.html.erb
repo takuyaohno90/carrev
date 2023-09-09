@@ -6,15 +6,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+
     <script src="https://kit.fontawesome.com/832bf0536f.js" crossorigin="anonymous"></script>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--<= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>-->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="d-flex flex-column vh-100">
-    <header class="shadow-sm">
+  <body class="body">
+    <header class="shadow-sm" style="background-color: #000000">
       <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
+        <div class="container"  style="max-width: 80%; background-color: #000000; padding: 20px;">
           <% if admin_signed_in? %>
             <%= link_to "カーRev", admin_path,class: "fa-solid fa-car-on" %>
           <% else %>
@@ -27,24 +29,24 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
-                <li class="nav-item"><%= link_to "マイページ", user_mypage_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "レビュー一覧", user_reviews_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "車種一覧", user_caritems_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark'  %></li>
+                <li class="nav-item"><%= link_to "マイページ", user_mypage_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "レビュー一覧", user_reviews_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "車種一覧", user_caritems_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white'  %></li>
               <% elsif admin_signed_in? %>
-                <li class="nav-item"><%= link_to "車種一覧", admin_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "ボディタイプ一覧", bodytypes_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "燃料一覧", fuels_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "メーカー一覧", makers_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "シーン一覧", scenes_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "会員一覧", users_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "レビュー一覧", reviews_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark'  %></li>
+                <li class="nav-item"><%= link_to "車種一覧", admin_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "ボディタイプ一覧", bodytypes_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "燃料一覧", fuels_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "メーカー一覧", makers_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "シーン一覧", scenes_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "会員一覧", users_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "レビュー一覧", reviews_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-white'  %></li>
               <% else %>
-                <li class="nav-item"><%= link_to "About", about_path, class: 'nav-link text-dark'  %></li>
-                <!--<li class="nav-item"><= link_to "車種一覧", items_path, class: 'nav-link text-dark'  %></li>-->
-                <li class="nav-item"><%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark'  %></li>
-                <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark'  %></li>
+                <li class="nav-item"><%= link_to "About", about_path, class: 'nav-link text-white'  %></li>
+                <!--<li class="nav-item"><= link_to "車種一覧", items_path, class: 'nav-link text-white'  %></li>-->
+                <li class="nav-item"><%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white'  %></li>
+                <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link text-white'  %></li>
               <% end %>
             </ul>
           </div>
