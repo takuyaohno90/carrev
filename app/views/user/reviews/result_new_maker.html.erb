@@ -1,18 +1,32 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div>
+  <div>
+    <div class="row">
+      <div class="col-lg-12 text-center" style="font-size: 20px; font-weight: bold;">
         <%= @maker.name %>の車種一覧
       </div>
-      <div>
-        <% @maker.car_items.each do |car_item| %>
-          <li><%= car_item.name %></li>
-          <%= form_with url: new_user_review_path, method: :get do |form| %>
-          <%= form.hidden_field :car_item_id, :value => car_item.id %>
-          <%= form.submit "投稿画面へ" %>
-          <% end %>
-        <% end %>
-      </div>
+    </div>
+    <div class="row">
+      <% @car_items.each do |car_item| %>
+        <div class="col-md-4 mt-3">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title" style="font-size: 20px; font-weight: bold;"><%= car_item.name %></div>
+            </div>
+            <div class="card-body">
+              <div class="card-text">
+                <%= image_tag car_item.get_image(300,300) %>
+              </div>
+              <%= form_with url: new_user_review_path, method: :get do |form| %>
+                <%= form.hidden_field :car_item_id, :value => car_item.id %>
+                <div class="card-text text-right">
+                  <%= form.submit "投稿画面へ" , class:"btn btn-sm btn-primary"%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
+  <%= paginate @car_items %>
 </div>

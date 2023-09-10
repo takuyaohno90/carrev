@@ -17,7 +17,11 @@
           </tr>
           <tr>
             <th>投稿画像</th>
-            <td><%= image_tag @review.image, size: "200x150" %></td>
+            <td><% if @review.image.present? %>
+                <%= image_tag @review.image, size: "200x150" %>
+                <% else %>
+                <%= image_tag "no_image.jpg", size: "200x150" %>
+                <% end %></td>
           </tr>
           <tr>
             <th>お気に入りの点</th>

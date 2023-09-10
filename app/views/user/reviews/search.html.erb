@@ -2,8 +2,8 @@
   <div class="row justify-content-center">
     <div class="col-md-6 mt-2">
       <h2 class="text-center" style="font-size: 20px; font-weight: bold;">メーカーで検索</h2>
-      <ul class="maker-list d-flex flex-wrap justify-content-between"  style="border: 1px solid #ccc;">
-        <li class="col-md-4  justify-content-center mt-2" style="list-style: none;">
+      <ul class="maker-list d-flex flex-wrap justify-content-between"  style="border: 3px solid #ccc; background-color:#fff;">
+        <li class="col-md-4 mt-2" style="list-style: none;">
           <div class="d-flex flex-column align-items-center">
             <%= link_to result_new_maker_user_reviews_path(@mitsubishi) do %>
               <%= image_tag("三菱.jpg", alt: "No Image", size: "100x75") %>
@@ -11,7 +11,7 @@
             <p class="text-center"><%= @mitsubishi.name %></p>
           </div>
         </li>
-        <li class="col-md-4 " style="list-style: none;">
+        <li class="col-md-4  mt-2" style="list-style: none;">
           <div class="d-flex flex-column align-items-center">
             <%= link_to result_new_maker_user_reviews_path(@toyota) do %>
               <%= image_tag("トヨタ.jpg", alt: "No Image", size: "100x75" ) %>
@@ -19,7 +19,7 @@
             <p class="text-center"><%= @toyota.name %></p>
           </div>
         </li>
-        <li class="col-md-4 " style="list-style: none;">
+        <li class="col-md-4 mt-2 " style="list-style: none;">
           <div class="d-flex flex-column align-items-center">
             <%= link_to result_new_maker_user_reviews_path(@nissan) do %>
               <%= image_tag("日産.jpg", alt: "No Image", size: "100x75" ) %>
@@ -78,7 +78,7 @@
       </ul>
 
       <div class="mb-4">
-        <h2 class="text-center" style="font-size: 20px; font-weight: bold;">車種名で検索(例：プリウス)索</h2>
+        <h2 class="text-center" style="font-size: 20px; font-weight: bold;">車種名で検索(例：プリウス)</h2>
         <%= form_with url: result_user_reviews_path, method: :get do |form| %>
           <div class="input-group">
             <%= form.text_field :keyword, class: "form-control", placeholder: "キーワードを入力してください" %>

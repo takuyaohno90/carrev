@@ -1,21 +1,31 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
+  <div>
+    <div class="row">
       <% if @car_item.any? %>
-      <ul>
         <% @car_item.each do |car_item| %>
-          <li>
-            <%= car_item.maker.name %><%= car_item.name %>
-            <%= form_with url: index_rev_carname_user_reviews_path, method: :get do |form| %>
-              <%= form.hidden_field :car_item_id, :value => car_item.id %>
-              <%= form.submit "レビュー一覧へ" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
+        <div class="col-md-4 mt-3">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title" style="font-size: 20px; font-weight: bold;"><%= car_item.name %></div>
+            </div>
+            <div class="card-body">
+              <div class="card-text">
+                <%= image_tag car_item.get_image(300,300) %>
+              </div>
+              <%= form_with url: index_rev_carname_user_reviews_path, method: :get do |form| %>
+                <%= form.hidden_field :car_item_id, :value => car_item.id %>
+                <div class="card-text text-right">
+                  <%= form.submit "レビュー一覧へ", class:"btn btn-sm btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <% else %>
-        <p>該当するアイテムは見つかりませんでした。</p>
+        <div class="col-lg-12 text-center" style="font-size: 24px; font-weight: bold;">該当するアイテムは見つかりませんでした。</div>
       <% end %>
     </div>
   </div>
+  <%= paginate @car_item %>
 </div>

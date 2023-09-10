@@ -1,33 +1,33 @@
 <div class="container">
   <div>
     <div class="row">
-      レビュー一覧
+      <% if @reviews.any? %>
+      <% @reviews.each do |review| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title"><%= review.title_rev %></h5>
+            </div>
+            <div class="card-body">
+              <%= link_to user_review_path(review.id) do %>
+                <% if review.image.present? %>
+                  <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+                <% else %>
+                  <%= image_tag "no_image.jpg", size: "200x150" , class:"card-img-top"; %>
+                <% end %>
+              <% end %>
+              <p class="card-text">車種名: <%= review.car_item.name %></p>
+              <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
+              <p class="card-text">投稿者: <%= review.user.first_name %><%= review.user.last_name %></p>
+              <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% else %>
+        <div class="col-lg-12 text-center" style="font-size: 24px; font-weight: bold;">該当するレビューは見つかりませんでした。</div>
+      <% end %>
     </div>
-    <div class="row">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th>車種名</th>
-            <th>メーカー</th>
-            <th>タイトル</th>
-            <th>投稿者</th>
-            <th>投稿日</th>
-          </tr>
-        </thead>
-        <% @reviews.each do |review| %>
-        <tbody>
-          <tr>
-            <td><%= review.car_item.name %></td>
-            <td><%= review.car_item.maker.name %></td>
-            <td><%= link_to user_review_path(review.id) do %><%= review.title_rev %><% end %></td>
-            <td><%= review.user.first_name %><%= review.user.last_name %></td>
-            <td><%= review.updated_at.strftime("%Y/%m/%d") %></td>
-          </tr>
-        </tbody>
-        <% end %>
-      </table>
-    </div>
-
+    <%= paginate @reviews %>
   </div>
-
 </div>

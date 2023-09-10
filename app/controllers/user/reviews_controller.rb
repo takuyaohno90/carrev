@@ -1,6 +1,5 @@
 class User::ReviewsController < ApplicationController
   def search
-    @maker = Maker.all
     @mitsubishi = Maker.find(1)
     @toyota = Maker.find(2)
     @nissan = Maker.find(3)
@@ -14,11 +13,12 @@ class User::ReviewsController < ApplicationController
 
   def result_new_maker
     @maker = Maker.find(params[:id])
+    @car_items = @maker.car_items.page(params[:page]).per(9)
   end
 
   def result
     keyword = params[:keyword]
-    @search_results = CarItem.where("name LIKE ?", "%#{keyword}%")
+    @search_results = CarItem.where("name LIKE ?", "%#{keyword}%").page(params[:page]).per(9)
   end
 
   def new
@@ -104,7 +104,7 @@ class User::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.where(status: 0).page(params[:page]).per(12)
+    @reviews = Review.where(status: 0).page(params[:page]).per(9)
     @tag_list = Tag.all
   end
 
@@ -114,27 +114,36 @@ class User::ReviewsController < ApplicationController
     #検索されたタグを受け取る
     @tag = Tag.find(params[:id])
     #検索されたタグに紐づく投稿を表示
-    @reviews = @tag.reviews.where(status: 0)
+    @reviews = @tag.reviews.where(status: 0).page(params[:page]).per(9)
   end
 
   def search_rev
-    @maker = Maker.all
+    @mitsubishi = Maker.find(1)
+    @toyota = Maker.find(2)
+    @nissan = Maker.find(3)
+    @honda = Maker.find(4)
+    @subaru = Maker.find(5)
+    @daihatsu = Maker.find(6)
+    @suzuki = Maker.find(7)
+    @matsuda = Maker.find(8)
+    @lexus = Maker.find(9)
     @tag_list = Tag.all
   end
 
   def result_rev_maker
     @maker = Maker.find(params[:id])
+    @reviews = @maker.reviews.where(status: 0).page(params[:page]).per(9)
   end
 
   def result_rev_carname
     keyword = params[:keyword]
-    @car_item = CarItem.where("name LIKE ?", "%#{keyword}%")
+    @car_item = CarItem.where("name LIKE ?", "%#{keyword}%").page(params[:page]).per(9)
   end
 
   def index_rev_carname
     id = params[:car_item_id]
     car_item = CarItem.find(id)
-    @reviews = car_item.reviews
+    @reviews = car_item.reviews.page(params[:page]).per(9)
   end
 
   private

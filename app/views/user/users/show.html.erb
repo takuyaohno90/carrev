@@ -39,7 +39,11 @@
         <!-- カードの本文 -->
         <div class="card-body">
           <%= link_to user_review_path(review.id) do %>
-            <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+            <% if review.image.present? %>
+              <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+            <% else %>
+              <%= image_tag "no_image.jpg", size: "200x150" , class:"card-img-top"; %>
+            <% end %>
           <% end %>
           <p class="card-text">車種名: <%= review.car_item.name %></p>
           <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>

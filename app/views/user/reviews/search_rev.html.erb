@@ -1,37 +1,107 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-8 mt-2">
+      <h2 class="text-center" style="font-size: 20px; font-weight: bold;">メーカーで検索</h2>
+      <ul class="maker-list d-flex flex-wrap justify-content-between"  style="border: 3px solid #ccc; background-color:#fff;">
+        <li class="col-md-4 mt-2" style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@mitsubishi) do %>
+              <%= image_tag("三菱.jpg", alt: "No Image", size: "100x75") %>
+            <% end %>
+            <p class="text-center"><%= @mitsubishi.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4  mt-2" style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@toyota) do %>
+              <%= image_tag("トヨタ.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @toyota.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 mt-2 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@nissan) do %>
+              <%= image_tag("日産.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @nissan.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@honda) do %>
+              <%= image_tag("ホンダ.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @honda.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@subaru) do %>
+              <%= image_tag("スバル.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @subaru.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@daihatsu) do %>
+              <%= image_tag("ダイハツ.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @daihatsu.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@suzuki) do %>
+              <%= image_tag("スズキ.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @suzuki.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@matsuda) do %>
+              <%= image_tag("マツダ.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @matsuda.name %></p>
+          </div>
+        </li>
+        <li class="col-md-4 " style="list-style: none;">
+          <div class="d-flex flex-column align-items-center">
+            <%= link_to result_rev_maker_user_reviews_path(@lexus) do %>
+              <%= image_tag("レクサス.jpg", alt: "No Image", size: "100x75" ) %>
+            <% end %>
+            <p class="text-center"><%= @lexus.name %></p>
+          </div>
+        </li>
+      </ul>
 
-      <div class="mb-3">
-        メーカーで検索
-        <div>
-          <% @maker.each do |maker| %>
-            ・<%= link_to maker.name, result_rev_maker_user_reviews_path(maker.id) %>
-          <% end %>
-        </div>
-
+      <div class="mb-4">
+        <h2 class="text-center" style="font-size: 20px; font-weight: bold;">車種名で検索(例：プリウス)</h2>
+        <%= form_with url: result_rev_carname_user_reviews_path, method: :get do |form| %>
+          <div class="input-group">
+            <%= form.text_field :keyword, class: "form-control", placeholder: "キーワードを入力してください" %>
+            <div class="input-group-append">
+              <%= form.submit "検索", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
       </div>
 
-      <div class="mb-3">
-        車種名で検索(例：プリウス)
-        <div>
-          <%= form_with url: result_rev_carname_user_reviews_path, method: :get do |form| %>
-            <%= form.text_field :keyword, placeholder: "キーワードを入力してください", class: 'form-control'  %>
-            <%= form.submit "検索", class: "btn btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        タグで検索
+      <div class="mb-4">
+        <h2 class="text-center" style="font-size: 20px; font-weight: bold;">タグで検索</h2>
         <div>
           <% @tag_list.each do |list| %>
-            <i class="fa-sharp fa-solid fa-tag"></i>
-            <%=link_to list.name, tag_search_user_reviews_path(list.id) %>
+            <%=link_to tag_search_user_reviews_path(list.id) do %>
+              <span class="badge badge-primary mr-2">
+              <i class="fas fa-tag"></i>
+              <%= list.name %><%="(#{list.reviews.count})" %>
+              </span>
+            <% end %>
           <% end %>
         </div>
       </div>
-
     </div>
   </div>
 
