@@ -1,9 +1,10 @@
 <div class="container">
   <div>
-    <div class="row mt-3">
+    <div class="row mt-2 mb-2">
       <% @tag_list.each do |list| %>
-        <i class="fa-sharp fa-solid fa-tag"></i>
-        <%= link_to list.name, tag_search_user_reviews_path(list.id) %>
+          <span class="badge badge-primary mr-2">
+            <i class="fas fa-tag"></i> <%= list.name %>
+          </span>
         <%="(#{list.reviews.count})" %>
       <% end %>
     </div>
@@ -12,9 +13,12 @@
         <div class="col-md-4 mb-4">
           <div class="card">
             <div class="card-header">
-              <h5 class="card-title"><%= link_to user_review_path(review.id), class: "text-dark" do %><%= review.title_rev %><% end %></h5>
+              <h5 class="card-title"><%= review.title_rev %></h5>
             </div>
             <div class="card-body">
+              <%= link_to user_review_path(review.id) do %>
+                <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+              <% end %>
               <p class="card-text">車種名: <%= review.car_item.name %></p>
               <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
               <p class="card-text">投稿者: <%= review.user.first_name %><%= review.user.last_name %></p>
@@ -24,5 +28,6 @@
         </div>
       <% end %>
     </div>
+    <%= paginate @reviews %>
   </div>
 </div>

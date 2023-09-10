@@ -1,56 +1,67 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 mt-3">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>メーカー</th>
+            <td><%= @review.maker.name %></td>
+          </tr>
+          <tr>
+            <th>車種</th>
+            <td><%= @review.car_item.name %></td>
+          </tr>
+          <tr>
+            <th>レビュータイトル</th>
+            <td><%= @review.title_rev %></td>
+          </tr>
+          <tr>
+            <th>投稿画像</th>
+            <td><%= image_tag @review.image, size: "200x150" %></td>
+          </tr>
+          <tr>
+            <th>お気に入りの点</th>
+            <td><%= @review.favorite %></td>
+          </tr>
+          <tr>
+            <th>不満点</th>
+            <td><%= @review.complain %></td>
+          </tr>
+        </tbody>
+      </table>
       <div>
-        メーカー：<%= @review.maker.name %>
-      </div>
-      <div>
-        車種：<%= @review.car_item.name %>
-      </div>
-      <div>
-        レビュータイトル：<%= @review.title_rev %>
-      </div>
-      <div>
-        <p>投稿画像</p>
-        <%= image_tag @review.image, size: "300x300" %>
-      </div>
-      <div>
-        <p>お気に入りの点</p>
-        <%= @review.favorite %>
-      </div>
-      <div>
-        <p>不満点</p>
-        <%= @review.complain %>
-      </div>
-      <div>
-        <p>コメント件数:<%= @review.comments.count %></p>
-        <div class="border p-3">
+        <div class="border p-3"  style="background-color: #ffffff">
+          <p style="color:#894537;"><b>レビューに対するコメント</b></p>
           <% @review.comments.each do |comment| %>
-          <p><%= comment.comment %>
-            (<%= comment.user.last_name %><%= comment.user.first_name %>さん
-            <%= comment.created_at.strftime('%Y/%m/%d') %>)
+          <div><%= comment.comment %></div>
+          <div class="mb-2">(<%= comment.user.last_name %><%= comment.user.first_name %>さん<%= comment.created_at.strftime('%Y/%m/%d') %>)
             <% if current_user.id == comment.user.id %>
               <%= link_to "コメント削除", user_review_comment_path(comment.review.id, comment.id), method: :delete %>
-            <% end %>
-          </p>
+            <% end %></div>
           <% end %>
+          <p class="text-right" style="color:#894537;">コメント件数:<%= @review.comments.count %></p>
         </div>
+
       </div>
       <div>
         <%= form_with model: [@review, @comment], url: user_review_comments_path(@review.id), method: :post do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントを入力" %>
-          <div><%= f.submit "コメントする", class: "btn btn-primary" %></div>
+          <%= f.text_area :comment, rows: '2', placeholder: "コメントを入力", class: "form-control mt-1"  %>
+          <div><%= f.submit "コメントする", class: "btn btn-primary mt-2" %></div>
         <% end %>
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div>
-        <p>主な使用シーン</p>
+    <div class="col-md-6 mt-3">
+      <div class="mb-2">
         <div class="d-flex flex-wrap">
+          <div class="pr-1" style="font-size: 16px; font-weight: bold;">
+            主な使用シーン
+          </div>
           <% @review_tags.each do |tag| %>
-          #<%= tag.name %>
-          <% end %>
+          <span class="badge badge-primary mr-2">
+            <i class="fas fa-tag"></i> <%= tag.name %>
+          </span>
+            <% end %>
         </div>
       </div>
       <table class="table">
@@ -112,7 +123,7 @@
         </tbody>
       </table>
       <div>
-        <p>レビュー：<%= @review.status_i18n %></p>
+        <div class="mb-2" style="font-size: 16px; font-weight: bold;">レビュー公開状況：<%= @review.status_i18n %></div>
       </div>
       <% if @review.user_id == current_user.id %>
         <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>

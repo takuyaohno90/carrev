@@ -1,6 +1,15 @@
 class User::ReviewsController < ApplicationController
   def search
     @maker = Maker.all
+    @mitsubishi = Maker.find(1)
+    @toyota = Maker.find(2)
+    @nissan = Maker.find(3)
+    @honda = Maker.find(4)
+    @subaru = Maker.find(5)
+    @daihatsu = Maker.find(6)
+    @suzuki = Maker.find(7)
+    @matsuda = Maker.find(8)
+    @lexus = Maker.find(9)
   end
 
   def result_new_maker
@@ -95,7 +104,7 @@ class User::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.where(status: 0)
+    @reviews = Review.where(status: 0).page(params[:page]).per(12)
     @tag_list = Tag.all
   end
 

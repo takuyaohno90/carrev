@@ -1,12 +1,12 @@
 <div class="container">
   <%= form_with model: @review, url: create_tag_user_reviews_path(@review.id), method: :patch do |f| %>
     <div class="row justify-content-center"> <!--d-flexは削除-->
-      <div class="col-md-6">
+      <div class="col-md-6 mt-2">
 
         <!-- 車種名表示 -->
-        <h3><%= @review.car_item.name %></h3>
+        <h3 class="text-center"  style="font-weight: bold;"><%= @review.car_item.name %></h3>
         <!-- レビュータイトル表示 -->
-        <h3><%= @review.title_rev %></h3>
+        <div>レビュータイトル：<%= @review.title_rev %></div>
 
         <!-- 主な使用シーン選択 -->
         <div class="mb-3">

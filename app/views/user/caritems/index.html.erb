@@ -1,28 +1,26 @@
 <div class="container">
   <div>
     <div class="row">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th>車種名</th>
-            <th>メーカー</th>
-            <th>燃料</th>
-            <th>ボディタイプ</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @caritems.each do |caritem| %>
-          <tr>
-            <td><%= caritem.name %></td>
-            <td><%= caritem.maker.name %></td>
-            <td><%= caritem.fuel.name %></td>
-            <td><%= caritem.bodytype.name %></td>
-            <td><%= link_to "詳細", user_caritem_path(caritem.id), class: "btn btn-info btn-sm" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% @caritems.each do |caritem| %>
+      <div class="col-md-4 mt-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title" style="font-size: 20px; font-weight: bold;"><%= caritem.name %></div>
+          </div>
+          <div class="card-body">
+            <%= link_to user_caritem_path(caritem.id) do %>
+              <%= image_tag caritem.get_image(300,300), class:"card-img-top" %>
+            <% end %>
+            <div class="card-text">
+              メーカー：<%= caritem.maker.name %>
+            </div>
+            <div class="card-text">
+              ボディタイプ：<%= caritem.bodytype.name %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
       <%= paginate @caritems %>
     </div>
   </div>

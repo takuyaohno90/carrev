@@ -27,7 +27,7 @@
   </div>
 
 <div>
-  <h2>レビュー一覧</h2>
+  <h2 style="font-size: 20px; font-weight: bold;">レビュー一覧</h2>
   <div class="row">
     <% @reviews.each do |review| %>
     <div class="col-md-4 mb-4">
@@ -38,13 +38,12 @@
         </div>
         <!-- カードの本文 -->
         <div class="card-body">
+          <%= link_to user_review_path(review.id) do %>
+            <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+          <% end %>
           <p class="card-text">車種名: <%= review.car_item.name %></p>
           <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
           <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
-          <!-- レビュー詳細へのリンク -->
-          <%= link_to user_review_path(review.id), class: "btn btn-primary" do %>
-            詳細を見る
-          <% end %>
         </div>
       </div>
     </div>
