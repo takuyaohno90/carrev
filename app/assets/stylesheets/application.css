@@ -58,3 +58,10 @@
   .table td{
     background-color:#fff;
   }
+
+  .custom-span{
+    display: inline-block;
+    width: 50px;
+    text-orientation: mixed; /* テキストの向きを指定 */
+    writing-mode: horizontal-tb; /* テキストの方向を水平に設定 */
+  }

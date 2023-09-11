@@ -4,12 +4,29 @@
     <div>
       <div class="mb-3">
         メーカー選択(選択無しでも可)
-        <div>
-          <% @maker.each do |maker| %>
-            <%= f.radio_button :maker_id, maker.id %>
-            <%= maker.name %>
+        <div class="form-check d-flex flex-wrap">
+          <%= f.collection_radio_buttons :maker_id, @maker, :id, :name, item_wrapper_class: 'form-check' do |b| %>
+            <%= b.radio_button class: 'form-check-input', style: "display: none;" %>
+            <div style="text-align:center; width:100px; border: 2px solid #ccc; background-color: #fff; padding: 5px 10px; border-radius: 10px; cursor: pointer; margin-right:10px;">
+              <%= b.label class: 'form-check-label' %>
+            </div>
           <% end %>
         </div>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const labels = document.querySelectorAll(".form-check-label");
+          labels.forEach((label) => {
+            label.addEventListener("click", function () {
+              labels.forEach((otherLabel) => {
+                otherLabel.style.backgroundColor = "#fff"; // 他のラベルの背景色をリセット
+              });
+              this.style.backgroundColor = "#3399ff"; // 選択されたラベルの背景色を変更
+            });
+          });
+        });
+        </script>
+
       <div class="mb-3">
         人数選択
         <div>
@@ -23,6 +40,8 @@
           <%= f.label :num_people, "6人以上" %>
         </div>
       </div>
+
+
       <div class="mb-3">
         ボディタイプ選択
         <div>
@@ -64,3 +83,4 @@
     <% end %>
   </div>
 </div>
+
