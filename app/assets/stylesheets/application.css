@@ -65,3 +65,26 @@
     text-orientation: mixed; /* テキストの向きを指定 */
     writing-mode: horizontal-tb; /* テキストの方向を水平に設定 */
   }
+
+  .check-title{
+    text-align:center;
+    margin-top:8px;
+    margin-bottom:2px;
+    font-weight:bold;
+    font-size:20px;
+  }
+
+  .radio-button-check{
+    justify-content:center;
+    display: flex;
+    flex-direction: row; /* 横方向に要素を配置 */
+    flex-wrap: wrap; /* 要素の折り返しを有効にする */
+    border:3px solid #ccc;
+    background-color:#fff;
+    border-radius:10px;
+  }
+
+  .radio-button-text{
+    margin-right:8px;
+  }
+

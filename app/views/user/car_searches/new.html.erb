@@ -1,86 +1,99 @@
 <div class="container">
-  <div class="row justify-content-center">
     <%= form_with url: result_user_car_searches_path, method: :get do |f| %>
-    <div>
-      <div class="mb-3">
-        メーカー選択(選択無しでも可)
-        <div class="form-check d-flex flex-wrap">
-          <%= f.collection_radio_buttons :maker_id, @maker, :id, :name, item_wrapper_class: 'form-check' do |b| %>
-            <%= b.radio_button class: 'form-check-input', style: "display: none;" %>
-            <div style="text-align:center; width:100px; border: 2px solid #ccc; background-color: #fff; padding: 5px 10px; border-radius: 10px; cursor: pointer; margin-right:10px;">
-              <%= b.label class: 'form-check-label' %>
-            </div>
-          <% end %>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="check-title">
+          メーカー選択(選択無しでも可)
         </div>
-
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const labels = document.querySelectorAll(".form-check-label");
-          labels.forEach((label) => {
-            label.addEventListener("click", function () {
-              labels.forEach((otherLabel) => {
-                otherLabel.style.backgroundColor = "#fff"; // 他のラベルの背景色をリセット
-              });
-              this.style.backgroundColor = "#3399ff"; // 選択されたラベルの背景色を変更
-            });
-          });
-        });
-        </script>
-
-      <div class="mb-3">
-        人数選択
-        <div>
-          <%= f.radio_button :num_people, 2 %>
-          <%= f.label :num_people, "2人以下" %>
-          <%= f.radio_button :num_people, 4 %>
-          <%= f.label :num_people, "4人" %>
-          <%= f.radio_button :num_people, 5 %>
-          <%= f.label :num_people, "5人" %>
-          <%= f.radio_button :num_people, 6 %>
-          <%= f.label :num_people, "6人以上" %>
-        </div>
+          <div class="radio-button-check  d-flex justify-content-center">
+            <% @maker.each do |maker| %>
+              <div class="radio-button-text">
+                <%= f.radio_button :maker_id, maker.id%>
+              </div>
+              <div class="radio-button-text">
+                <%= maker.name %>
+              </div>
+            <% end %>
+          </div>
       </div>
+    </div>
 
-
-      <div class="mb-3">
-        ボディタイプ選択
-        <div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="check-title">
+          人数選択
+        </div>
+          <div class="radio-button-check">
+            <div class="radio-button-text"><%= f.radio_button :num_people, 2 %></div>
+            <div class="radio-button-text"><%= f.label :num_people, "2人以下" %></div>
+            <div class="radio-button-text"><%= f.radio_button :num_people, 4 %></div>
+            <div class="radio-button-text"><%= f.label :num_people, "4人" %></div>
+            <div class="radio-button-text"><%= f.radio_button :num_people, 5 %></div>
+            <div class="radio-button-text"><%= f.label :num_people, "5人" %></div>
+            <div class="radio-button-text"><%= f.radio_button :num_people, 6 %></div>
+            <div class="radio-button-text"><%= f.label :num_people, "6人以上" %></div>
+          </div>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="check-title">
+          ボディタイプ選択
+        </div>
+        <div class="radio-button-check  d-flex justify-content-center">
           <% @bodytype.each do |bodytype| %>
-            <%= f.radio_button :bodytype_id, bodytype.id %>
-            <%= bodytype.name %>
+            <div class="radio-button-text"><%= f.radio_button :bodytype_id, bodytype.id %></div>
+            <div class="radio-button-text"><%= bodytype.name %></div>
           <% end %>
         </div>
       </div>
-      <div class="mb-3">
-        燃料種別選択
-        <div>
+    </div> 
+    
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="check-title">
+          燃料種別選択
+        </div>
+        <div class="radio-button-check  d-flex justify-content-center">
           <% @fuel.each do |fuel| %>
-            <%= f.radio_button :fuel_id, fuel.id %>
-            <%= fuel.name %>
+            <div class="radio-button-text"><%= f.radio_button :fuel_id, fuel.id %></div>
+            <div class="radio-button-text"><%= fuel.name %></div>
           <% end %>
         </div>
       </div>
-      <div class="mb-3">
-        利用目的選択(2つまで)
-        <div>
+    </div>   
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="check-title">
+          利用目的選択(2つまで)
+        </div>
+        <div class="radio-button-check  d-flex justify-content-center">
           <% @default_tags.each do |tag| %>
-            <%= check_box_tag 'tags[]', tag %>
-            <%= tag %>
+            <div class="radio-button-text"><%= check_box_tag 'tags[]', tag %></div>
+            <div class="radio-button-text"><%= tag %></div>
           <% end %>
         </div>
       </div>
-      <div class="mb-3">
-        こだわり条件選択(2つまで)
-        <div>
+    </div>  
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="check-title">
+          こだわり条件選択(2つまで)
+        </div>
+        <div class="radio-button-check  d-flex justify-content-center">
           <% @discerning.each do |discerning| %>
-            <%= check_box_tag 'discerning[]', discerning %>
-            <%= discerning %>
+            <div class="radio-button-text"><%= check_box_tag 'discerning[]', discerning %></div>
+            <div class="radio-button-text"><%= discerning %></div>
           <% end %>
         </div>
       </div>
+    </div>
+    <div class="check-title">
       <%= f.submit '検索', class: 'btn btn-primary'  %>
     </div>
     <% end %>
-  </div>
 </div>
 

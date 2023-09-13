@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <%= form_with url: result_user_car_searches_path, method: :get do |f| %>
+    <div>
+      <div class="mb-3">
+        <div class="text-center" style="font-weight:bold; font-size:20px;">メーカー選択(選択無しでも可)</div>
+        <div class="form-check d-flex flex-wrap">
+          <%= f.collection_radio_buttons :maker_id, @maker, :id, :name, item_wrapper_class: 'form-check' do |b| %>
+            <%= b.radio_button class: 'form-check-input', style: "display: none;" %>
+            <div style="text-align:center; width:100px; border: 2px solid #ccc; background-color: #fff; padding: 5px 10px; border-radius: 10px; cursor: pointer; margin-right:10px;">
+              <%= b.label class: 'form-check-label1' %>
+            </div>
+          <% end %>
+        </div>
+
+      <div class="mb-3">
+        人数選択
+        <div>
+
+          <%= f.radio_button :num_people, 2, class:"form-check-input", style:"display: none;" %>
+          <div style="text-align:center; width:100px; border: 2px solid #ccc; background-color: #fff; padding: 5px 10px; border-radius: 10px; cursor: pointer; margin-right:10px;"><%= f.label :num_people, "2人以下",  class: 'form-check-label2'  %></div>
+          <%= f.radio_button :num_people, 4 %>
+          <%= f.label :num_people, "4人" %>
+          <%= f.radio_button :num_people, 5 %>
+          <%= f.label :num_people, "5人" %>
+          <%= f.radio_button :num_people, 6 %>
+          <%= f.label :num_people, "6人以上" %>
+        </div>
+      </div>
+
+
+      <div class="mb-3">
+        ボディタイプ選択
+        <div>
+          <% @bodytype.each do |bodytype| %>
+            <%= f.radio_button :bodytype_id, bodytype.id %>
+            <%= bodytype.name %>
+          <% end %>
+        </div>
+      </div>
+      <div class="mb-3">
+        燃料種別選択
+        <div>
+          <% @fuel.each do |fuel| %>
+            <%= f.radio_button :fuel_id, fuel.id %>
+            <%= fuel.name %>
+          <% end %>
+        </div>
+      </div>
+      <div class="mb-3">
+        利用目的選択(2つまで)
+        <div>
+          <% @default_tags.each do |tag| %>
+            <%= check_box_tag 'tags[]', tag %>
+            <%= tag %>
+          <% end %>
+        </div>
+      </div>
+      <div class="mb-3">
+        こだわり条件選択(2つまで)
+        <div>
+          <% @discerning.each do |discerning| %>
+            <%= check_box_tag 'discerning[]', discerning %>
+            <%= discerning %>
+          <% end %>
+        </div>
+      </div>
+      <%= f.submit '検索', class: 'btn btn-primary'  %>
+    </div>
+    <% end %>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const labels = document.querySelectorAll(".form-check-label1");
+    labels.forEach((label) => {
+      label.addEventListener("click", function () {
+        labels.forEach((otherLabel) => {
+          otherLabel.style.backgroundColor = "#fff"; // 他のラベルの背景色をリセット
+        });
+          this.style.backgroundColor = "#3399ff"; // 選択されたラベルの背景色を変更
+      });
+    });
+  });
+  </script>
+</div>
+
