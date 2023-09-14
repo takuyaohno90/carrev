@@ -1,266 +1,240 @@
-<div class="container">
+<div class="container" style="max-width: 100%; max-height: 100%;">
+  <div class="row with-border" style="height: 6vh;">
+    <div class="col-lg-12 d-flex justify-content-center align-items-center" style="max-width:100%; background-color:#ffffff;">
+      <ul class="d-flex" style="list-style: none; color:#666;">
+        <li style="margin-right: 40px;"><%= link_to "レビューを投稿", search_user_reviews_path, class: "custom-link" %></li>
+        <li style="margin-right: 40px;"><%= link_to "レビューを検索", search_rev_user_reviews_path, class: "custom-link" %></li>
+        <li style="margin-right: 80px;"><%= link_to "車を検索", new_user_car_search_path, class: "custom-link" %></li>
+      </ul>
+    </div>
+  </div>
+
   <div class="row justify-content-center">
-    <div class="col-md-12">
+    <div class="col-md-8">
       <div class="mt-3">
-        <h3>
-          <span>車種検索結果</span>
+        <h3 class="text-center">
+          <span style="font-weight:bold; font-size:20px;">車種検索結果</span>
         </h3>
         <div>
-          <p>※画像は最新のモデルです</p>
 
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>比較車種</th>
-                
+                <th>
+                  <div class="d-flex align-items-center" style="height:140px;">
+                    <div style="vertical-align:middle;">比較車種</div>
+                  </div>
+                </th>
+                <% @car_items.each do |car_item| %>
                 <td>
                   <div>
-                    <div>
-                      車種画像1
+                    <div class="d-flex justify-content-center align-items-center">
+                      <%= image_tag car_item.get_image(200,100) %>
                     </div>
-                    <div>
-                      車種名
+                    <div class="car-search-text" style="color:#00F; font-size:20px; font-weight:bold;">
+                      <%= car_item.name %>
                     </div>
+                    <%= form_with url: index_rev_carname_user_reviews_path, method: :get do |form| %>
+                      <%= form.hidden_field :car_item_id, :value => car_item.id %>
+                      <% if car_item.reviews.present? %>
+                      <div style="text-align:center;">
+                        <%= form.submit "レビュー掲載あり", class:"btn btn-sm btn-primary"%>
+                      </div>
+                      <% end %>
+                    <% end %>
                   </div>
                 </td>
-                
-                <td>
-                  <div>
-                    <div>
-                      車種画像2
-                    </div>
-                    <div>
-                      車種名
-                    </div>
-                  </div>
-                </td>
-                
-                <td>
-                  <div>
-                    <div>
-                      車種画像3
-                    </div>
-                    <div>
-                      車種名
-                    </div>
-                  </div>
-                </td>
-                
+                <% end %>
               </tr>
             </thead>
 
             <tbody>
             <tr>
               <th>メーカー</th>
-                <td>スズキ</td>
-                <td>スズキ</td>
-                <td>ダイハツ</td>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.maker.name %>
+                  </div>
+                </td>
+              <% end %>
             </tr>
 
             <tr>
               <th>ボディタイプ</th>
-                <td>トールワゴン</td>
-                <td>ハッチバック</td>
-                <td>トールワゴン</td>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.bodytype.name %>
+                  </div>
+                </td>
+              <% end %>
             </tr>
             <tr>
               <th>エンジン区分</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    ガソリン、
-                    ガソリンHV(PHV)
+                  <div class="car-search-text">
+                    <%= car_item.fuel.name %>
+                  </div>
                 </td>
-                <td>
-                    ガソリン
-                </td>
-                <td>
-                    ガソリン
-                </td>
+              <% end %>
             </tr>
             <tr>
               <th>定員</th>
-                <td>4名</td>
-                <td>4名</td>
-                <td>4名</td>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.num_people %>名
+                  </div>
+                </td>
+              <% end %>
             </tr>
             <tr>
               <th>燃費</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                  25.2km/L<br>
-                  WLTCモード走行
+                  <div class="car-search-text">
+                    <%= car_item.fuel_consumption %>
+                  </div>
                 </td>
-                <td>
-                  26.2km/L<br>
-                  WLTCモード走行
-                </td>
-                <td>
-                  22.7km/L<br>
-                  WLTCモード走行
-                </td>
+              <% end %>
             </tr>
             <tr>
               <th>排気</th>
-                <td>657cc</td>
-                <td>658cc</td>
-                <td>658cc</td>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.displacement %>
+                  </div>
+                </td>
+              <% end %>
             </tr>
             <tr>
               <th>車体寸法<br><span>（全長×全幅×全高）</span></th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                  3,395×1,475×1,525mm
+                  <div class="d-flex justify-content-center align-items-center" style="height:50px;">
+                    <div style="vertical-align:middle;">
+                      <%= car_item.size %>
+                    </div>
+                  </div>
                 </td>
-                <td>
-                  3,395×1,475×1,755mm
-                </td>
-                <td>
-                  3,395×1,475×1,545mm
-                </td>
+              <% end %>
             </tr>
             <tr>
               <th>総合ユーザ評価</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>4.0</span>
-                      <span>点</span>
-                      <span></span>
-                    </span> 
-                </td>                <td>
-                    <span>
-                      <span>4.0</span>
-                      <span>点</span>
-                      <span></span>
-                    </span> 
-                </td>                <td>
-                    <span>
-                      <span>4.0</span>
-                      <span>点</span>
-                      <span></span>
-                    </span> 
+                  <div class="car-search-text">
+                    <%= car_item.evaluation_car %>
+                  </div>
                 </td>
+              <% end %>
             </tr>
             <tr>
               <th>デザイン</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.design_car %>
+                  </div>
                 </td>
-                <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
-                <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
+              <% end %>
             </tr>
             <tr>
               <th>走行性能</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>4.0</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.performance_car %>
+                  </div>
                 </td>
-                <td>
-                  
-                    <span>
-                      <span>4.3</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
-                <td>
-                  
-                    <span>
-                      <span>4.0</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
+              <% end %>
             </tr>
             <tr>
-              <th>乗り心地</th>
+              <th>静粛性</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.2</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.quietness_car %>
+                  </div>
                 </td>
-                <td>
-                    <span>
-                      <span>3.2</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
-                <td>
-                    <span>
-                      <span>3.2</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
+              <% end %>
             </tr>
             <tr>
-              <th>積載性</th>
+              <th>室内スペース</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.indoor_space_car %>
+                  </div>
                 </td>
-                <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
-                <td>
-                    <span>
-                      <span>3.8</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
-                </td>
+              <% end %>
             </tr>
             <tr>
-              <th>価格</th>
+              <th>荷室スペース</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.6</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.luggage_space_car %>
+                  </div>
                 </td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>振動</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.6</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.vibration_car %>
+                  </div>
                 </td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>本体価格</th>
+              <% @car_items.each do |car_item| %>
                 <td>
-                    <span>
-                      <span>3.6</span>
-                      <span>点</span>
-                      <span></span>
-                    </span>
+                  <div class="car-search-text">
+                    <%= car_item.price_car %>
+                  </div>
                 </td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>運転支援</th>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.assistance_car %>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>安全機能</th>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.safety_car %>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>維持費</th>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= car_item.maintenance_cost_car %>
+                  </div>
+                </td>
+              <% end %>
             </tr>
             </tbody>
           </table>
+
         </div>
       </div>
     </div>

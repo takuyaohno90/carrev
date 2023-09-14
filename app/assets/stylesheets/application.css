@@ -88,3 +88,17 @@
     margin-right:8px;
   }
 
+  .car-search-text{
+    text-align:center;
+  }
+
+  .btn-light-blue{
+    color:#fff;
+    background-color:#add8e6;
+  }
+
+  .btn-light-blue:hover{
+    background-color:#6fa2d6;
+  }
+
+
