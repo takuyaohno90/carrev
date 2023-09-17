@@ -104,7 +104,7 @@
         <p>レビュー：<%= @review.status_i18n %></p>
       </div>
         <%= link_to "編集する", edit_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
-        <%= link_to "削除する", review_path(@review.id), method: :delete, class:"link btn btn-sm btn-danger"  %>
+        <%= link_to "削除する", review_path(@review.id), method: :delete, class:"link btn btn-sm btn-danger", data: { confirm: "削除してもよろしいですか？" }  %>
     </div>
   </div>
 

@@ -7,12 +7,12 @@
       <div class="col-md-4 mt-2">
 
         <!-- 車種名表示 -->
-        <h3 class="text-center"  style="font-weight: bold;"><%= @review.car_item.name %></h3>
+        <h3 class="text-center"  style="font-weight: bold;"><%= @review.car_item.maker.name %><%= @review.car_item.name %></h3>
         <!-- レビュータイトル表示 -->
         <div>レビュータイトル：<%= @review.title_rev %></div>
 
         <!-- 主な使用シーン選択 -->
-        <div class="mb-3">
+        <div class="mb-3 mt-2">
           <label>主な使用シーン選択：</label>
           <div class="d-flex flex-wrap">
             <% @default_tags.each do |tag| %>

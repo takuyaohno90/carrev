@@ -1,6 +1,6 @@
 <div class="container" style="max-width: 100%; max-height: 100%;">
   <%= render 'user/homes/head' %>
-  
+
   <div class="row">
     <div class="col-md-6 mt-3 justify-content-center align-items-center ml-auto" style="max-width:40%;">
       <table class="table">
@@ -42,7 +42,7 @@
           <div><%= comment.comment %></div>
           <div class="mb-2">(<%= comment.user.last_name %><%= comment.user.first_name %>さん<%= comment.created_at.strftime('%Y/%m/%d') %>)
             <% if current_user.id == comment.user.id %>
-              <%= link_to "コメント削除", user_review_comment_path(comment.review.id, comment.id), method: :delete %>
+              <%= link_to "コメント削除", user_review_comment_path(comment.review.id, comment.id), method: :delete, data: { confirm: "削除してもよろしいですか？" } %>
             <% end %></div>
           <% end %>
           <p class="text-right" style="color:#894537;">コメント件数:<%= @review.comments.count %></p>
@@ -58,18 +58,6 @@
     </div>
 
     <div class="col-md-6 mt-3 justify-content-center align-items-center mr-auto" style="max-width:40%;">
-      <div class="mb-2">
-        <div class="d-flex flex-wrap">
-          <div class="pr-1" style="font-size: 16px; font-weight: bold;">
-            主な使用シーン
-          </div>
-          <% @review_tags.each do |tag| %>
-          <span class="badge badge-primary mr-2">
-            <i class="fas fa-tag"></i> <%= tag.name %>
-          </span>
-            <% end %>
-        </div>
-      </div>
       <table class="table">
         <thead>
           <tr>
@@ -128,22 +116,39 @@
         </tr>
         </tbody>
       </table>
+
+      <div class="mb-2">
+        <div class="d-flex flex-wrap">
+          <div class="pr-1" style="font-size: 16px; font-weight: bold;">
+            主な使用シーン
+          </div>
+          <% @review_tags.each do |tag| %>
+          <span class="badge badge-primary mr-2">
+            <i class="fas fa-tag"></i> <%= tag.name %>
+          </span>
+            <% end %>
+        </div>
+      </div>
+
       <div>
         <div class="mb-2" style="font-size: 16px; font-weight: bold;">レビュー公開状況：<%= @review.status_i18n %></div>
       </div>
-      <% if @review.user_id == current_user.id %>
-        <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
-        <%= link_to "削除する", user_review_path(@review.id), method: :delete, class:"link btn btn-sm btn-danger"  %>
-      <% end %>
-      <div class="mt-1">
-        <%= form_with url: new_user_review_path, method: :get do |form| %>
-          <%= form.hidden_field :car_item_id, :value => @review.car_item.id %>
-          <%= form.submit "#{@review.car_item.name}のレビューを投稿する", class: "btn btn-primary" %>
+      <div class="d-flex">
+        <% if @review.user_id == current_user.id %>
+        <div class="mr-1">
+          <%= link_to "編集する", edit_user_review_path(@review.id), class:"link btn btn-sm btn-success"  %>
+        </div>
+        <div class="mr-1">
+          <%= link_to "削除する", user_review_path(@review.id), method: :delete, data: { confirm: "削除してもよろしいですか？" },  class:"link btn btn-sm btn-danger"  %>
+        </div>
         <% end %>
+        <div class="mr-1">
+          <%= form_with url: new_user_review_path, method: :get do |form| %>
+            <%= form.hidden_field :car_item_id, :value => @review.car_item.id %>
+            <%= form.submit "#{@review.car_item.name}のレビューを投稿する", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
     </div>
-    <div>
-    </div>
   </div>
-
 </div>

@@ -16,8 +16,10 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      flash[:notice] = "ユーザー情報の編集に成功しました。"
       redirect_to user_path(@user.id)
     else
+      flash[:alert] = "ユーザー情報の編集に失敗しました。"
       render :show
     end
   end
@@ -25,6 +27,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+    flash[:notice] = "ユーザー情報の削除に成功しました。"
     redirect_to users_path
   end
 

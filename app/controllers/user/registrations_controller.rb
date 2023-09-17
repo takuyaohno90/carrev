@@ -2,9 +2,16 @@
 
 class User::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_normal_user, only: :destroy
 
   def after_sign_up_path_for(resouce)
     root_path
+  end
+  
+  def ensure_normal_user
+    if resource.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーは削除できません'
+    end
   end
 
   protected

@@ -12,9 +12,10 @@ class Admin::CaritemsController < ApplicationController
     @caritem_check = CarItem.find_by(name: params[:car_item][:name])
     if !@caritem_check
       @caritem.save
+      flash[:notice] = "車種登録に成功しました。"
       redirect_to caritem_path(@caritem.id)
     else
-      flash[:notice] = "既に登録済みの車種です。"
+      flash[:alert] = "既に登録済みの車種です。"
       render :new
     end
   end
@@ -31,8 +32,10 @@ class Admin::CaritemsController < ApplicationController
   def update
     @caritem = CarItem.find(params[:id])
     if @caritem.update(caritem_params)
+      flash[:notice] = "車種登録情報の編集に成功しました。"
       redirect_to caritem_path(@caritem.id)
     else
+      flash[:alert] = "車種登録情報の編集に失敗しました。"
       render :edit
     end
 
@@ -42,6 +45,7 @@ class Admin::CaritemsController < ApplicationController
     @caritem = CarItem.find(params[:id])
     @caritem.destroy
     @caritems = CarItem.all
+    flash[:notice] = "車種登録情報の削除にしました。"
     redirect_to admin_path
   end
 

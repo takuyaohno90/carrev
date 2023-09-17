@@ -9,9 +9,11 @@ class Admin::MakersController < ApplicationController
   def create
     @maker = Maker.new(maker_params)
     if @maker.save
+      flash[:notice] = "メーカーの登録に成功しました。"
       redirect_to makers_path
     else
       @makers = Maker.all
+      flash[:alert] = "メーカーの登録に失敗しました。"
       render :index
     end
   end
@@ -23,8 +25,10 @@ class Admin::MakersController < ApplicationController
   def update
     @maker = Maker.find(params[:id])
     if @maker.update(maker_params)
+      flash[:notice] = "メーカーの編集に成功しました。"
       redirect_to makers_path
     else
+      flash[:alert] = "メーカーの編集に失敗しました。"
       render :edit
     end
   end
@@ -32,6 +36,7 @@ class Admin::MakersController < ApplicationController
   def destroy
     @maker = Maker.find(params[:id])
     @maker.destroy
+    flash[:notice] = "メーカーの削除に成功しました。"
     redirect_to makers_path
   end
 

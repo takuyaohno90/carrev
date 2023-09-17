@@ -1,13 +1,13 @@
 <div class="container" style="max-width: 100%; max-height: 100%;">
-  
+
   <%= render 'user/homes/head' %>
-  
+
   <%= form_with model: @review, url: user_reviews_path, method: :post do |f| %>
     <div class="row justify-content-center" style=" max-width:60%; margin: 0 auto;"> <!--d-flexは削除-->
       <div class="col-md-6">
 
         <!-- 車種名表示 -->
-        <h3 class="text-center"><%= @car_item.maker.name %><%= @car_item.name %></h3>
+        <h3 class="text-center mt-2" style="font-weight: bold;"><%= @car_item.maker.name %><%= @car_item.name %></h3>
 
         <!-- 主な使用シーン選択 -->
 

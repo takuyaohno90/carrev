@@ -5,8 +5,8 @@
       <table class="table">
         <tbody>
           <tr>
-            <td><%= f.label :name, "燃料" %></td>
-            <td><%=f.text_field :name %></td>
+            <td><%= f.label :name, "燃料", class: "form-label" %></td>
+            <td><%=f.text_field :name, class: "form-control"  %></td>
           </tr>
         </tbody>
       </table>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="row d-flex justify-content-center mt-4">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <h2 class="text-center">燃料一覧</h2>
       <table class="table">
         <thead>
@@ -34,8 +34,8 @@
           <tr>
             <td><%= fuel.id %></td>
             <td><%= fuel.name %></td>
-            <td><%= link_to "編集する", edit_fuel_path(fuel.id) %></td>
-            <td><%= link_to "削除する", fuel_path(fuel.id), method: :delete %></td>
+            <td><%= link_to "編集する", edit_fuel_path(fuel.id), class: "btn btn-primary btn-sm"  %></td>
+            <td><%= link_to "削除する", fuel_path(fuel.id), method: :delete, data: { confirm: "削除してもよろしいですか？" }, class: "btn btn-danger btn-sm"  %></td>
           </tr>
         </tbody>
         <% end %>

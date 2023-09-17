@@ -42,9 +42,9 @@ class Admin::MultiCaritemsController < ApplicationController
       end
 
     @caritems = CarItem.all
-    redirect_to admin_path, notice: "caritem was successfully uploaded."
+    redirect_to admin_path, notice: "複数車種の登録に成功しました。."
     else
-      render :new
+      render :new, alert: "複数車種の登録に失敗しました。"
     end
   end
 
