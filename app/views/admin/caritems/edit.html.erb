@@ -1,27 +1,25 @@
-<div class="container">
-  <div class="row d-flex justify-content-conter">
-    編集画面
-  </div>
-  <%= form_with model: @caritem, url: caritem_path(@caritem.id), method: :patch do |caritem| %>
-  <div class="row d-flex justify-content-conter">
-    <table class="admin_item_info item_form">
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="container" style="max-width: 100%; max-height: 100%;">
 
-        <tr>
-          <td><%= caritem.label :car_image, "車種画像" %></td>
-          <td><%= caritem.file_field :car_image, accept: "image/*" %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row d-flex justify-content-conter">
-    <%= caritem.submit "編集", class: "btn btn-primary" %>
-  </div>
+  <%= form_with model: @caritem, url: caritem_path(@caritem.id), method: :patch do |f|  %>
+    <div class="row justify-content-center"> <!--d-flexは削除-->
+      <div class="col-md-4 mt-2">
+        <!-- 車種名表示 -->
+        <h3 class="text-center" style="font-weight: bold;"><%= @caritem.name %></h3>
+
+        <!-- 画像投稿 -->
+        <div class="mb-3">
+          <%= f.label :image, "車種画像", class: 'form-label' %>
+          <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
+        </div>
+
+
+        <!-- 送信ボタン -->
+        <div class="d-flex justify-content-center">
+          <%= f.submit "編集" , class: 'btn btn-primary' %>
+        </div>
+
+      </div>
+    </div>
   <% end %>
 </div>
+

@@ -1,7 +1,10 @@
-<div class="container">
+<div class="container" style="max-width: 100%; max-height: 100%;">
+  
+  <%= render 'user/homes/head' %>
+  
     <%= form_with url: result_user_car_searches_path, method: :get do |f| %>
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-5">
         <div class="check-title">
           メーカー選択(選択無しでも可)
         </div>
@@ -19,7 +22,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-md-4">
+      <div class="col-md-2">
         <div class="check-title">
           人数選択
         </div>
@@ -37,7 +40,7 @@
     </div>
     
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="check-title">
           ボディタイプ選択
         </div>
@@ -51,7 +54,7 @@
     </div> 
     
     <div class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="check-title">
           燃料種別選択
         </div>
@@ -65,7 +68,7 @@
     </div>   
     
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-5">
         <div class="check-title">
           利用目的選択(2つまで)
         </div>
@@ -79,7 +82,7 @@
     </div>  
     
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="check-title">
           こだわり条件選択(2つまで)
         </div>

@@ -1,38 +1,36 @@
-<div class="container">
-  <div>
-    <div>
-      <div class="row">
+<div class="container" style="max-width: 100%; max-height: 100%;">
+
+
+      <div class="row justify-content-center mt-2">
         <ul class="list-unstyled">
           <li class="mb-3"><%= link_to "車種登録", check_caritems_path, class: "btn btn-primary" %></li>
         </ul>
       </div>
     </div>
-    <div class="row">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th>車種ID</th>
-            <th>メーカーID</th>
-            <th>燃料</th>
-            <th>ボディタイプ</th>
-            <th>車種名</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @caritems.each do |caritem| %>
-          <tr>
-            <td><%= caritem.id %></td>
-            <td><%= caritem.maker.name %></td>
-            <td><%= caritem.fuel.name %></td>
-            <td><%= caritem.bodytype.name %></td>
-            <td><%= caritem.name %></td>
-            <td><%= link_to "詳細", caritem_path(caritem.id), class: "btn btn-info btn-sm" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+    
+    <div  class="row" style=" max-width:70%; margin: 0 auto; margin-top: 5px; ">
+      <% @caritems.each do |caritem| %>
+      <div class="col-md-4 mt-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title" style="font-size: 20px; font-weight: bold;"><%= caritem.name %></div>
+          </div>
+          <div class="card-body">
+            <%= link_to caritem_path(caritem.id) do %>
+              <%= image_tag caritem.get_image(300,300), class:"card-img-top" %>
+            <% end %>
+            <div class="card-text">
+              メーカー：<%= caritem.maker.name %>
+            </div>
+            <div class="card-text">
+              ボディタイプ：<%= caritem.bodytype.name %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
       <%= paginate @caritems %>
     </div>
   </div>
 </div>
+

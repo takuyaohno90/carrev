@@ -1,53 +1,45 @@
 <div class="container">
-  <div class="row d-flex justify-content-center">
-    燃料登録
-  </div>
   <%= form_with model: @fuel, url: fuels_path, method: :post do |f| %>
-  <div class="row d-flex justify-content-center">
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= f.label :name, "燃料" %></td>
-        <td><%=f.text_field :name %></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-  <div class="row d-flex justify-content-center align-center pl5">
-    <%= f.submit "登録", class: "btn btn-primary" %>
-  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><%= f.label :name, "燃料" %></td>
+            <td><%=f.text_field :name %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <%= f.submit "登録", class: "btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
-
-
-  <div class="row d-flex justify-content-center">
-    燃料一覧
   </div>
-  <div class="row d-flex justify-content-center">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <% @fuels.each do |fuel| %>
-      <tbody>
-        <tr>
-          <td><%= fuel.id %></td>
-          <td><%= fuel.name %></td>
-          <td><%= link_to "編集する", edit_fuel_path(fuel.id) %></td>
-          <td><%= link_to "削除する", fuel_path(fuel.id), method: :delete %></td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>
+
+  <div class="row d-flex justify-content-center mt-4">
+    <div class="col-md-8">
+      <h2 class="text-center">燃料一覧</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @fuels.each do |fuel| %>
+        <tbody>
+          <tr>
+            <td><%= fuel.id %></td>
+            <td><%= fuel.name %></td>
+            <td><%= link_to "編集する", edit_fuel_path(fuel.id) %></td>
+            <td><%= link_to "削除する", fuel_path(fuel.id), method: :delete %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>

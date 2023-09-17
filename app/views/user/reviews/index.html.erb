@@ -1,6 +1,9 @@
-<div class="container">
+<div class="container" style="max-width: 100%; max-height: 100%;">
+
+<%= render 'user/homes/head' %>
+  
   <div>
-    <div class="row mt-2 mb-2">
+    <div class="row justify-content-center align-items-center mt-2 mb-2" style=" max-width:70%; margin: 0 auto;">
       <% @tag_list.each do |list| %>
           <%=link_to tag_search_user_reviews_path(list.id) do %>
             <span class="badge badge-primary mr-2">
@@ -10,7 +13,7 @@
           <% end %>
       <% end %>
     </div>
-    <div class="row">
+    <div class="row" style=" max-width:70%; margin: 0 auto; margin-top: 5px; ">
       <% @reviews.each do |review| %>
         <div class="col-md-4 mb-4">
           <div class="card">

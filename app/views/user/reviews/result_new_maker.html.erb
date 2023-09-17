@@ -1,11 +1,14 @@
-<div class="container">
+<div class="container" style="max-width: 100%; max-height: 100%;">
+  
+  <%= render 'user/homes/head' %>
+  
   <div>
     <div class="row">
       <div class="col-lg-12 text-center" style="font-size: 20px; font-weight: bold;">
         <%= @maker.name %>の車種一覧
       </div>
     </div>
-    <div class="row">
+    <div class="row" style="max-width:70%; margin: 0 auto; margin-top: 5px;" >
       <% @car_items.each do |car_item| %>
         <div class="col-md-4 mt-3">
           <div class="card">

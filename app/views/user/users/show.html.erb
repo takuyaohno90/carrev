@@ -1,7 +1,18 @@
-<div class="container">
+<div class="container" style="max-width: 100%; max-height: 100%;">
 
-  <div class="row d-flex justify-content-conter" style="margin-top: 10px; max-width:100%;">
-    <div class="col-lg-12">
+  <div class="row with-border" style="height: 6vh;">
+    <div class="col-lg-12 d-flex justify-content-center align-items-center" style="max-width:100%; background-color: #ffffff">
+      <ul class="d-flex" style="list-style: none; color:#666;">
+        <li style="margin-right: 40px;"><%= link_to "レビューを投稿", search_user_reviews_path, class: "custom-link" %></li>
+        <li style="margin-right: 40px;"><%= link_to "レビューを検索", search_rev_user_reviews_path, class: "custom-link" %></li>
+        <li style="margin-right: 80px;"><%= link_to "車を検索", new_user_car_search_path, class: "custom-link" %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-conter align-items-center" style="margin-top: 10px; max-width:100%;">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
     <table class="table table-bordered">
       <tr>
         <th>氏名</th>
@@ -16,43 +27,44 @@
         <td><%= current_user.email %></td>
       </tr>
     </table>
-
     </div>
   </div>
 
-  <div class="row" style=" max-width:100%;">
-    <div class="col-lg-12 text-right">
+  <div class="row justify-content-conter align-items-center" style=" max-width:100%;">
+    <div class="col-lg-8 text-right">
       <%= link_to '登録内容を編集する', user_informaition_edit_path, class: "btn btn-sm btn-success" %>
     </div>
   </div>
 
-<div>
-  <h2 style="font-size: 20px; font-weight: bold;">レビュー一覧</h2>
-  <div class="row">
-    <% @reviews.each do |review| %>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <!-- カードのヘッダー -->
-        <div class="card-header">
-          <h5 class="card-title"><%= review.title_rev %></h5>
-        </div>
-        <!-- カードの本文 -->
-        <div class="card-body">
-          <%= link_to user_review_path(review.id) do %>
-            <% if review.image.present? %>
-              <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
-            <% else %>
-              <%= image_tag "no_image.jpg", size: "200x150" , class:"card-img-top"; %>
+  <div class="row d-flex align-items-center justify-content-center">
+    <h2 style="font-size: 20px; font-weight: bold; margin-top: 10px; ">レビュー一覧</h2>
+  </div>
+  <div>
+    <div class="row" style=" max-width:70%; margin: 0 auto; margin-top: 5px; ">
+      <% @reviews.each do |review| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <!-- カードのヘッダー -->
+          <div class="card-header">
+            <h5 class="card-title"><%= review.title_rev %></h5>
+          </div>
+          <!-- カードの本文 -->
+          <div class="card-body">
+            <%= link_to user_review_path(review.id) do %>
+              <% if review.image.present? %>
+                <%= image_tag review.image, size: "200x150" , class:"card-img-top";  %>
+              <% else %>
+                <%= image_tag "no_image.jpg", size: "200x150" , class:"card-img-top"; %>
+              <% end %>
             <% end %>
-          <% end %>
-          <p class="card-text">車種名: <%= review.car_item.name %></p>
-          <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
-          <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
+            <p class="card-text">車種名: <%= review.car_item.name %></p>
+            <p class="card-text">メーカー: <%= review.car_item.maker.name %></p>
+            <p class="card-text">投稿日: <%= review.updated_at.strftime("%Y/%m/%d") %></p>
+          </div>
         </div>
       </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
-</div>
 
 </div>

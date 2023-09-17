@@ -1,14 +1,10 @@
 <div class="container">
-  <div class="row d-flex justify-content-center">
-    <!--<= flash[:notice] %>登録完了を入れたい-->
+  <div class="row d-flex justify-content-center align-center mt-2">
+    <%= form_with model: @caritem, url: multi_caritems_path, method: :post do |f| %>
+      <%= f.file_field :excel_file, class:"form-control" %>
+      <div class="d-flex justify-content-center mt-2">
+        <%= f.submit "登録", class: "btn btn-primary text-align:center;" %>
+      </div>
+    <% end %>
   </div>
-  <div class="row d-flex justify-content-center">
-    ・複数車種登録画面
-  </div>
-  <%= form_with model: @caritem, url: multi_caritems_path, method: :post do |f| %>
-  <div class="row d-flex justify-content-center align-center pl5">
-    <%= f.file_field :excel_file %>
-    <%= f.submit "登録", class: "btn btn-primary" %>
-  </div>
-  <% end %>
 </div>

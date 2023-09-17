@@ -1,24 +1,21 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
-    ボディタイプ編集画面
+    <h2 class="text-center">ボディタイプ編集</h2>
   </div>
   <%= form_with model: @bodytype, url: bodytype_path(@bodytype.id), method: :patch do |f| %>
   <div class="row d-flex justify-content-center">
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <td><% f.label :name, "ボディタイプ" %></td>
-        <td><%= f.text_field :name %></td>
-      </tbody>
-    </table>
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+          <td><% f.label :name, "ボディタイプ" %></td>
+          <td><%= f.text_field :name, class:"form-control" %></td>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="row d-flex justify-content-center align-center pl5">
+  <div class="text-center">
     <%= f.submit "編集", class: "btn btn-primary" %>
   </div>
   <% end %>
 </div>
+

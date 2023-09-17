@@ -1,53 +1,45 @@
 <div class="container">
-  <div class="row d-flex justify-content-center">
-    メーカー登録
-  </div>
   <%= form_with model: @maker, url: makers_path, method: :post do |f| %>
-  <div class="row d-flex justify-content-center">
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= f.label :name, "メーカー" %></td>
-        <td><%=f.text_field :name %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row justify-content-center">
+    <div class="col-md-6 mt-2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><%= f.label :name, "メーカー" %></td>
+            <td><%=f.text_field :name, class: "form-control" %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <%= f.submit "登録", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
   </div>
-  <div class="row d-flex justify-content-center align-center pl5">
-    <%= f.submit "登録", class: "btn btn-primary" %>
-  </div>
-  <% end %>
-
-
-  <div class="row d-flex justify-content-center">
-    メーカー一覧
-  </div>
-  <div class="row d-flex justify-content-center">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <% @makers.each do |maker| %>
-      <tbody>
-        <tr>
-          <td><%= maker.id %></td>
-          <td><%= maker.name %></td>
-          <td><%= link_to "編集する", edit_maker_path(maker.id) %></td>
-          <td><%= link_to "削除する", maker_path(maker.id), method: :delete %></td>
-        </tr>
-      </tbody>
+  
+  <div class="row d-flex justify-content-center mt-4">
+    <div class="col-md-8">
+      <h2 class="text-center">メーカー一覧</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @makers.each do |maker| %>
+        <tbody>
+          <tr>
+            <td><%= maker.id %></td>
+            <td><%= maker.name %></td>
+            <td><%= link_to "編集する", edit_maker_path(maker.id) %></td>
+            <td><%= link_to "削除する", maker_path(maker.id), method: :delete %></td>
+          </tr>
+        </tbody>
       <% end %>
-    </table>
+      </table>
+    </div>
   </div>
 </div>
