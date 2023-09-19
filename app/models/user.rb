@@ -5,8 +5,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
-# ゲストログイン
+         
+  validates :last_name, :first_name, :last_name_kana, :first_name_kana, presence: true
+         
+  # ゲストログイン
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64

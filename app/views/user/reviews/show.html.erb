@@ -145,7 +145,7 @@
         <div class="mr-1">
           <%= form_with url: new_user_review_path, method: :get do |form| %>
             <%= form.hidden_field :car_item_id, :value => @review.car_item.id %>
-            <%= form.submit "#{@review.car_item.name}のレビューを投稿する", class: "btn btn-primary" %>
+            <%= form.submit "#{@review.car_item.name}のレビューを投稿する", class: "btn btn-sm btn-primary" %>
           <% end %>
         </div>
       </div>

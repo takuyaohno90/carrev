@@ -7,6 +7,7 @@ class Admin::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @review_tags = @review.tags
   end
 
   def edit
@@ -23,6 +24,7 @@ class Admin::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     tag_list = params[:review][:name]
     @review.save_tag(tag_list)
+    flash[:notice] = "レビューの編集に成功しました。"
     redirect_to review_path(@review.id)
   end
 
@@ -41,7 +43,12 @@ class Admin::ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find(params[:id])
+    car_item_evaluation_cal_delete
+    if @review.tags.present?
+      tag_count_delete
+    end
     @review.destroy
+    flash[:notice] = "レビューの削除に成功しました。"
     redirect_to reviews_path
   end
 
@@ -61,3 +68,80 @@ class Admin::ReviewsController < ApplicationController
     @review.evaluation = (total / 11.0).round(1)
   end
 end
+
+  def car_item_evaluation_cal_debug
+   attributes = [
+     :design_car, :performance_car, :fuel_consumptionrev_car, :quietness_car,
+      :vibration_car, :indoor_space_car, :luggage_space_car, :price_car,
+      :maintenance_cost_car, :safety_car, :assistance_car, :evaluation_car
+    ]
+
+    attributes.each do |attr|
+      value = @review.car_item.send(attr)
+     if value < 0 || value > 5
+       @review.car_item.send("#{attr}=", 3.0)
+     end
+    end
+
+    if @review.car_item.review_count < 0
+      @review.car_item.review_count = 0
+    end
+  end
+
+  def car_item_evaluation_cal_delete
+    count = @review.car_item.review_count
+
+    if count == 1
+      attributes = [
+      :design_car, :performance_car, :fuel_consumptionrev_car, :quietness_car,
+      :vibration_car, :indoor_space_car, :luggage_space_car, :price_car,
+      :maintenance_cost_car, :safety_car, :assistance_car, :evaluation_car
+      ]
+
+      attributes.each do |attr|
+        @review.car_item.send("#{attr}=", 3.0)
+      end
+
+      @review.car_item.review_count = 0
+      @review.car_item.save
+    else
+      attributes = [
+        :design, :performance, :fuel_consumptionrev, :quietness, :vibration,
+        :indoor_space, :luggage_space, :price, :maintenance_cost, :safety,
+        :assistance, :evaluation
+      ]
+
+      attributes.each do |attr|
+        current_value = @review.car_item.send("#{attr}_car")
+        updated_value = (((current_value * count) - @review.send(attr)) / (count - 1)).round(1)
+        @review.car_item.send("#{attr}_car=", updated_value)
+      end
+
+      @review.car_item.review_count -= 1
+      @review.car_item.save
+    end
+    car_item_evaluation_cal_debug
+  end
+  
+  def tag_count_delete
+    tag_counts = {
+      "通勤通学" => :commuting_tag_count,
+      "送迎" => :pick_up_tag_count,
+      "買い物" => :shopping_tag_count,
+      "スポーツ" => :sports_tag_count,
+      "アウトドア" => :outdoor_tag_count,
+      "オフロード" => :offroad_tag_count,
+      "長距離" => :long_distance_tag_count,
+      "走りを楽しむ" => :enjoy_tag_count
+    }
+
+    @review.tags.each do |tag|
+      attribute = tag_counts[tag.name]
+      if attribute
+        current_value = @review.car_item.send(attribute)
+        if current_value > 0
+          @review.car_item.update(attribute => current_value - 1)
+        end
+      end
+    end
+  end

@@ -39,8 +39,11 @@ class User::ReviewsController < ApplicationController
       car_item_evaluation_cal
       redirect_to new_tag_user_reviews_path(@review.id)
     else
+      id = params[:review][:car_item_id]
+      @car_item = CarItem.find(id)
       puts @review.errors.full_messages
-      redirect_to root_path
+      flash[:alert] = "記載内容または投稿画像を確認ください。"
+      render :new
     end
   end
 
@@ -54,10 +57,17 @@ class User::ReviewsController < ApplicationController
     if @review.tags.present?
       tag_count_delete
     end
-    @tag_list = params[:review][:name]
-    @review.save_tag(@tag_list)
-    tag_count
-    redirect_to user_review_path(@review.id)
+    unless params[:review].blank?
+      @tag_list = params[:review][:name]
+      @review.save_tag(@tag_list)
+      tag_count
+      flash[:notice] = "レビューの登録に成功しました。"
+      redirect_to user_review_path(@review.id)
+    else
+      @default_tags = ["通勤通学", "送迎", "買い物", "スポーツ", "アウトドア", "オフロード", "長距離", "走りを楽しむ"]
+      flash[:alert] = "タグを設定してください。"
+      render :new_tag
+    end
   end
 
   def show
@@ -82,12 +92,32 @@ class User::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     car_item_evaluation_cal_delete
     evaluation_cal_update
-    if @review.update(review_params)
+    if @review.update(review_update_params)
       car_item_evaluation_cal
+      redirect_to edit_image_user_reviews_path(@review.id)
+    else
+      flash[:alert] = "記載内容を確認ください。"
+      puts @review.errors.full_messages
+      render :edit
+    end
+  end
+
+  def edit_image
+    @review = Review.find(params[:id])
+    unless @review.user == current_user
+      redirect_to root_path
+    end
+  end
+
+  def update_image
+    @review = Review.find(params[:id])
+    unless params[:review].blank?
+      @review.update(review_update_image_params)
       redirect_to new_tag_user_reviews_path(@review.id)
     else
+      flash[:alert] = "投稿画像を確認ください。"
       puts @review.errors.full_messages
-      redirect_to root_path
+      render :edit_image
     end
   end
 
@@ -95,11 +125,12 @@ class User::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @car_items = CarItem.all
     #reset_car_item
-    #car_item_evaluation_cal_delete
+    car_item_evaluation_cal_delete
     if @review.tags.present?
       tag_count_delete
     end
     @review.destroy
+    flash[:notice] = "レビューの削除に成功しました。"
     redirect_to user_reviews_path
   end
 
@@ -148,8 +179,18 @@ class User::ReviewsController < ApplicationController
 
   private
 #, tag_ids: []
+  #create時
   def review_params
     params.require(:review).permit(:image, :title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status, :maker_id)
+  end
+  #edit時
+  def review_update_params
+    params.require(:review).permit(:title_rev, :favorite, :complain, :car_item_id, :design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :status, :maker_id)
+  end
+
+  #editの画像投稿時
+  def review_update_image_params
+    params.require(:review).permit(:image)
   end
 
   def evaluation_cal
@@ -251,7 +292,6 @@ class User::ReviewsController < ApplicationController
 
     @review.car_item.save
   end
-
 
   def tag_count_delete
     tag_counts = {

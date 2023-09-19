@@ -34,7 +34,7 @@
             <tr>
               <td><%= bodytype.id %></td>
               <td><%= bodytype.name %></td>
-              <td><%= link_to "編集する", edit_bodytype_path(bodytype.id), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to "編集する", edit_bodytype_path(bodytype.id), class: "btn btn-success btn-sm" %></td>
               <td><%= link_to "削除する", bodytype_path(bodytype.id), method: :delete, data: { confirm: "削除してもよろしいですか？" }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

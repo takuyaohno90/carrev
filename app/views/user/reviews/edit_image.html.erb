@@ -1,0 +1,26 @@
+<div class="container" style="max-width: 100%; max-height: 100%;">
+
+  <%= render 'user/homes/head' %>
+
+  <%= form_with model: @review, url: update_image_user_reviews_path(@review.id), method: :patch do |f| %>
+    <div class="row justify-content-center"> <!--d-flexは削除-->
+      <div class="col-md-4 mt-2">
+
+        <!-- 車種名表示 -->
+        <h3 class="text-center" style="font-weight: bold;"><%= @review.car_item.name %></h3>
+
+        <!-- 画像投稿 -->
+        <div class="mb-3">
+          <%= f.label :image, "投稿画像", class: 'form-label' %>
+          <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
+        </div>
+
+        <!-- 送信ボタン -->
+        <div class="d-flex justify-content-center">
+          <%= f.submit "次へ" ,class: 'btn btn-primary' %>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -20,7 +20,7 @@ class Admin::UsersController < ApplicationController
       redirect_to user_path(@user.id)
     else
       flash[:alert] = "ユーザー情報の編集に失敗しました。"
-      render :show
+      render :edit
     end
   end
 

@@ -44,11 +44,6 @@
           <%= f.text_field :title_rev, class: 'form-control' %>
         </div>
 
-        <!-- 画像投稿 -->
-        <div class="mb-3">
-          <%= f.label :image, "投稿画像", class: 'form-label' %>
-          <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
-        </div>
 
         <!-- お気に入り -->
         <div class="mb-3">
@@ -79,7 +74,7 @@
 
         <!-- 送信ボタン -->
         <div class="d-flex justify-content-center">
-          <%= f.submit class: 'btn btn-primary' %>
+          <%= f.submit "次へ" ,class: 'btn btn-primary' %>
         </div>
 
       </div>
