@@ -1,5 +1,5 @@
 class User::CarSearchesController < ApplicationController
-
+  before_action :authenticate_user!
   def new
     @maker = Maker.all
     @bodytype = Bodytype.all

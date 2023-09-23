@@ -1,4 +1,5 @@
 class User::ReviewsController < ApplicationController
+  before_action :authenticate_user!
   def search
     @mitsubishi = Maker.find(1)
     @toyota = Maker.find(2)
@@ -205,15 +206,20 @@ class User::ReviewsController < ApplicationController
 
   def car_item_evaluation_cal
     count = @review.car_item.review_count
-    attributes_to_update = [:design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :evaluation]
 
-    attributes_to_update.each do |attr|
-    current_value = @review.car_item.send("#{attr}_car")
-    new_value = (((current_value * count) + @review.send(attr)) / (count + 1)).round(1)
-    @review.car_item.send("#{attr}_car=", new_value)
+    if count < 0
+      count = 0
     end
 
-    @review.car_item.review_count += 1
+    attributes_to_update = [:design, :performance, :fuel_consumptionrev, :quietness, :vibration, :indoor_space, :luggage_space, :price, :maintenance_cost, :safety, :assistance, :evaluation]
+    attributes_to_update.each do |attr|
+      current_value = @review.car_item.send("#{attr}_car")
+      new_value = (((current_value * count) + @review.send(attr)) / (count + 1)).round(1)
+      @review.car_item.send("#{attr}_car=", new_value)
+    end
+
+    count += 1
+    @review.car_item.review_count = count
     car_item_evaluation_cal_debug
     @review.car_item.save
   end

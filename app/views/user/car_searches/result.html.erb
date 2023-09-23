@@ -123,7 +123,7 @@
               <% end %>
             </tr>
             <tr>
-              <th>総合ユーザ評価</th>
+              <th>総合ユーザー評価</th>
               <% @car_items.each do |car_item| %>
                 <td>
                   <div class="car-search-text">
@@ -232,9 +232,21 @@
                 </td>
               <% end %>
             </tr>
+            <tr>
+              <th></th>
+              <% @car_items.each do |car_item| %>
+                <td>
+                  <div class="car-search-text">
+                    <%= form_with url: index_rev_carname_user_reviews_path, method: :get do |f| %>
+                      <%= f.hidden_field :car_item_id, :value => car_item.id %>
+                      <%= f.submit "車種レビュー一覧へ", class: "btn btn-sm btn-primary" %>
+                    <% end %>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
             </tbody>
           </table>
-
         </div>
       </div>
     </div>
