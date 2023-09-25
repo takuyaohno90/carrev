@@ -1,0 +1,15 @@
+ja:
+  enums:
+    review:
+      status:
+        release: "公開"
+        local: "非公開(下書き保存)"
+  devise:
+    sessions:
+      signed_out: 'ログアウトしました。'
+      signed_in: 'ログインしました。'
+    failure:
+      unauthenticated: 'ログインが必要です。'
+    registrations:
+      signed_up: 'ログインしました。'
+    

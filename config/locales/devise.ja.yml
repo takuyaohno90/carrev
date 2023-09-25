@@ -1,0 +1,9 @@
+ja:
+  devise:
+    sessions:
+      signed_out: 'ログアウトしました。'
+      signed_in: 'ログインしました。'
+    failure:
+      unauthenticated: 'ログインが必要です。'
+    registrations:
+      signed_up: 'ログインしました。'
